@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.API.Objects.Main;
+using static Adventure.SDK.Library.Classes.Native.Player;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX
 {
@@ -21,30 +22,49 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX
 
         public SwapCharacter(Character character, byte playerID, bool isMetalSonic = false, bool isSuper = false) : base(playerID)
         {
+            // Store Original CharacterData
             SDK.Library.Definitions.Structures.GameObject.CharacterData* oldCharacterData = CharacterData;
 
             NextAction = PlayerAction.ReturnToNormal;
 
+            // Set Metal Sonic Flag 
             bool* isMetalSonicFlag = (bool*)0x3B18DB5;
             *isMetalSonicFlag = isMetalSonic;
 
+            // Change Main of Game Object
             Handle->mainSub = _characterMainFunctions[character];
 
             CharacterID = character;
 
+            // Set Character Action to Initialize
             Info->Action = 0;
+
+            // Cancel Special State of Character
             Info->Status &= ~(Status.Attack | Status.Ball | Status.LightDash | Status.Unknown3);
 
+            // Free Player Collision
             Info->CollisionInfo = null;
 
+            // Load New Character
             Handle->MainSub(Handle);
 
+            // Copy CharacterData Stuff from Old Character
             CharacterData->Powerups       = oldCharacterData->Powerups;
             CharacterData->JumpTime       = oldCharacterData->JumpTime;
             CharacterData->UnderwaterTime = oldCharacterData->UnderwaterTime;
             CharacterData->PathDistance   = oldCharacterData->PathDistance;
             CharacterData->Speed          = oldCharacterData->Speed;
             CharacterData->HeldObject     = oldCharacterData->HeldObject;
+
+            if (character != Character.Eggman && character != Character.Tikal)
+            {
+                LoadSpecialPlayerAnimations(character);
+            }
+
+            if (true)
+            {
+
+            }
         }
     }
 }

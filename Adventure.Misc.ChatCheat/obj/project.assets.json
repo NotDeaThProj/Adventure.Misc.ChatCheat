@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Adventure.SDK/0.0.4": {
+      "Adventure.SDK/0.0.5": {
         "type": "package",
         "dependencies": {
           "Reloaded.Hooks": "2.3.4"
@@ -1167,14 +1167,14 @@
     }
   },
   "libraries": {
-    "Adventure.SDK/0.0.4": {
-      "sha512": "EyN5wPt/CtQNW7b18PNDqN/WzxCEV6tGeuxK9V3fgB1OwpcKq3PQERIt6YtqWMzcuCZGLFMFxuYIDbQYXBndRA==",
+    "Adventure.SDK/0.0.5": {
+      "sha512": "FicIZXmQkHiS/ijDU4gCyh/Ra7ilOZ09UBVPw8jOLHph6FAWI2VjYvYWakH3irszaqMST89o7+yi8qgg7TnpGA==",
       "type": "package",
-      "path": "adventure.sdk/0.0.4",
+      "path": "adventure.sdk/0.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "adventure.sdk.0.0.4.nupkg.sha512",
+        "adventure.sdk.0.0.5.nupkg.sha512",
         "adventure.sdk.nuspec",
         "lib/netcoreapp3.1/Adventure.SDK.dll"
       ]
@@ -3804,7 +3804,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Adventure.SDK >= 0.0.4",
+      "Adventure.SDK >= 0.0.5",
       "Reloaded.Hooks >= 2.3.4",
       "Reloaded.Messaging >= 1.1.0",
       "Reloaded.Messaging.Serializer.SystemTextJson >= 1.0.1",
@@ -3821,11 +3821,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DeaTh\\source\\repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+      "projectUniqueName": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
       "projectName": "Adventure.Misc.ChatCheat.ReloadedII",
-      "projectPath": "C:\\Users\\DeaTh\\source\\repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+      "projectPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
       "packagesPath": "C:\\Users\\DeaTh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DeaTh\\source\\repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
+      "outputPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -3859,7 +3859,7 @@
         "dependencies": {
           "Adventure.SDK": {
             "target": "Package",
-            "version": "[0.0.4, )"
+            "version": "[0.0.5, )"
           },
           "Reloaded.Hooks": {
             "target": "Package",
