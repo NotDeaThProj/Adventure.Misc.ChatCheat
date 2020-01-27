@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AssemblyName>Adventure.Misc.ChatCheat.ReloadedII</AssemblyName>
+    <RootNamespace>Adventure.Misc.ChatCheat.ReloadedII</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ModConfig.json" />
+    <None Remove="Preview.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ModConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Adventure.SDK" Version="0.0.4" />
+    <PackageReference Include="ini-parser" Version="2.5.2" />
+    <PackageReference Include="Reloaded.Hooks" Version="2.3.4" />
+    <PackageReference Include="Reloaded.Messaging" Version="1.1.0" />
+    <PackageReference Include="Reloaded.Messaging.Serializer.SystemTextJson" Version="1.0.1" />
+    <PackageReference Include="Reloaded.Mod.Interfaces" Version="1.6.0" />
+    <PackageReference Include="TwitchLib" Version="3.1.0" />
+  </ItemGroup>
+
+</Project>

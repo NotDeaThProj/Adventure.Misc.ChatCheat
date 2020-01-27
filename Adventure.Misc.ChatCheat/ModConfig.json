@@ -1,0 +1,13 @@
+﻿{
+  "ModId": "adventure.misc.chatcheat",
+  "ModName": "Sonic Adventure DX (2004) Chat Cheat",
+  "ModAuthor": "ĐeäTh",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Chat Interaction made for SADX (2004)",
+  "ModDll": "Adventure.Misc.ChatCheat.ReloadedII.dll",
+  "ModIcon": "Preview.png",
+  "ModDependencies": [],
+  "SupportedAppId": [
+    "sonic.exe"
+  ]
+}
