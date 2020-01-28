@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Adventure.Misc.ChatCheat.ReloadedII.SADX;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
 using Adventure.SDK.Library.Definitions.Enums;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
@@ -28,6 +29,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     Function = new Action<string, string>(SwapToSonic),
                     Cooldown = Program.Configuration.SwapSonic.Cooldown,
                     LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.SwapSuper.Name, new Command()
+                {
+                    Function = new Action<string, string>(SwapToSuper),
+                    Cooldown = Program.Configuration.SwapSuper.Cooldown,
+                    LastActivated =_defaultTime
                 }
             },
             { Program.Configuration.SwapMetalSonic.Name, new Command()
@@ -86,53 +94,69 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     LastActivated = _defaultTime
                 }
             },
+            { Program.Configuration.CreateCart.Name, new Command()
+                {
+                    Function = new Action<string, string>(CreateNewCart),
+                    Cooldown = Program.Configuration.CreateCart.Cooldown,
+                    LastActivated = _defaultTime
+                }
+            }
         };
 
         public unsafe static void SwapToSonic(string command, string messageSender)
         {
-            new SwapCharacter(Character.Sonic, 0);
+            new SwapCharacter(Character.Sonic, Players.P1);
+            LogCommand(messageSender, command);
+        }
+        public static void SwapToSuper(string command, string messageSender)
+        {
+            new SuperStateManager(Players.P1);
             LogCommand(messageSender, command);
         }
         public unsafe static void SwapToMetalSonic(string command, string messageSender)
         {
-            new SwapCharacter(Character.Sonic, 0, true);
+            new SwapCharacter(Character.Sonic, Players.P1, true);
             LogCommand(messageSender, command);
         }
         /*public unsafe static void SwapToEggman(string command, string messageSender)
         {
-            new SwapCharacter(Character.Eggman, 0);
+            new SwapCharacter(Character.Eggman, Players.P1);
             LogCommand(messageSender, command);
         }*/
         public unsafe static void SwapToTails(string command, string messageSender)
         {
-            new SwapCharacter(Character.Tails, 0);
+            new SwapCharacter(Character.Tails, Players.P1);
             LogCommand(messageSender, command);
         }
         public unsafe static void SwapToKnuckles(string command, string messageSender)
         {
-            new SwapCharacter(Character.Knuckles, 0);
+            new SwapCharacter(Character.Knuckles, Players.P1);
             LogCommand(messageSender, command);
         }
         /*public unsafe static void SwapToTikal(string command, string messageSender)
         {
-            new SwapCharacter(Character.Tikal, 0);
+            new SwapCharacter(Character.Tikal, Players.P1);
             LogCommand(messageSender, command);
         }*/
         public unsafe static void SwapToAmy(string command, string messageSender)
         {
-            new SwapCharacter(Character.Amy, 0);
+            new SwapCharacter(Character.Amy, Players.P1);
             LogCommand(messageSender, command);
         }
         public unsafe static void SwapToBig(string command, string messageSender)
         {
-            new SwapCharacter(Character.Big, 0);
+            new SwapCharacter(Character.Big, Players.P1);
             LogCommand(messageSender, command);
         }
         public unsafe static void SwapToGamma(string command, string messageSender)
         {
             // TODO - FIX CRASH
-            new SwapCharacter(Character.Gamma, 0);
+            new SwapCharacter(Character.Gamma, Players.P1);
             LogCommand(messageSender, command);
+        }
+        public unsafe static void CreateNewCart(string command, string messageSender)
+        {
+            
         }
 
         public static void LogCommand(string sender, string command)

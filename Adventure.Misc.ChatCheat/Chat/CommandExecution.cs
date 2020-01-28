@@ -41,6 +41,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 if (CommandController.CommandList.ContainsKey(currentMessage.Message))
                 {
                     Command currentCommand = CommandController.CommandList[currentMessage.Message];
+
                     currentCommand.Function(currentMessage.Message, currentMessage.Sender);
                 }
             }

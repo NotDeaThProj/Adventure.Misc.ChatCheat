@@ -38,7 +38,6 @@ C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bi
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\FASM.DLL
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\FASMX64.DLL
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\Reloaded.Assembler.targets
-C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\INIFileParser.dll
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\LiteNetLib.dll
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\Reloaded.Messaging.dll
 C:\Users\DeaTh\source\repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\Reloaded.Messaging.Interfaces.dll

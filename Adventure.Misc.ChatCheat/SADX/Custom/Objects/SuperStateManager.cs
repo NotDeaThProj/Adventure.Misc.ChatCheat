@@ -23,14 +23,14 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         // Variables/Constants
         private AudioManager _audioManager = new AudioManager();
         private bool _isPlayerSuper;
-        private byte _playerID;
+        private Players _playerID;
         private Stage* _lastLevel;
         private byte* _lastAct;
         private Music _levelSong;
         private long _timer = 0;
         private SDK.Library.Definitions.Structures.GameObject.GameObject* _superStateManager;
 
-        public SuperStateManager(byte playerID) : base(playerID)
+        public SuperStateManager(Players playerID) : base(playerID)
         {
             LoadPVMFile("SUPERSONIC", (IntPtr)0x142272C);
             _superStateManager = CreateGameObject(0, 2);

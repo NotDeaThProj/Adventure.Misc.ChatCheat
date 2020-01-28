@@ -1,21 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {}
+    "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {}
   },
   "projects": {
-    "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {
+    "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+        "projectUniqueName": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
         "projectName": "Adventure.Misc.ChatCheat.ReloadedII",
-        "projectPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+        "projectPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
         "packagesPath": "C:\\Users\\DeaTh\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
+        "outputPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
           "C:\\Users\\DeaTh\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,7 +44,7 @@
           "dependencies": {
             "Adventure.SDK": {
               "target": "Package",
-              "version": "[0.0.5, )"
+              "version": "[0.0.6, )"
             },
             "Reloaded.Hooks": {
               "target": "Package",
@@ -66,10 +65,6 @@
             "TwitchLib": {
               "target": "Package",
               "version": "[3.1.0, )"
-            },
-            "ini-parser": {
-              "target": "Package",
-              "version": "[2.5.2, )"
             }
           },
           "imports": [

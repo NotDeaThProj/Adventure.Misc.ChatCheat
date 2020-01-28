@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Adventure.SDK/0.0.5": {
+      "Adventure.SDK/0.0.6": {
         "type": "package",
         "dependencies": {
           "Reloaded.Hooks": "2.3.4"
@@ -21,15 +21,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Iced.dll": {}
-        }
-      },
-      "ini-parser/2.5.2": {
-        "type": "package",
-        "compile": {
-          "lib/net20/INIFileParser.dll": {}
-        },
-        "runtime": {
-          "lib/net20/INIFileParser.dll": {}
         }
       },
       "LiteNetLib/0.8.3.1": {
@@ -1167,14 +1158,14 @@
     }
   },
   "libraries": {
-    "Adventure.SDK/0.0.5": {
-      "sha512": "FicIZXmQkHiS/ijDU4gCyh/Ra7ilOZ09UBVPw8jOLHph6FAWI2VjYvYWakH3irszaqMST89o7+yi8qgg7TnpGA==",
+    "Adventure.SDK/0.0.6": {
+      "sha512": "JYIh26mS2l0j9C0jBgcM+AOAJtf4lfpgQSB9MV3wacA5anesyWzP0dSzvC/LaFubGRl2rpTQa1xb0ZWV6GwB5g==",
       "type": "package",
-      "path": "adventure.sdk/0.0.5",
+      "path": "adventure.sdk/0.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "adventure.sdk.0.0.5.nupkg.sha512",
+        "adventure.sdk.0.0.6.nupkg.sha512",
         "adventure.sdk.nuspec",
         "lib/netcoreapp3.1/Adventure.SDK.dll"
       ]
@@ -1195,20 +1186,6 @@
         "lib/net45/Iced.xml",
         "lib/netstandard2.0/Iced.dll",
         "lib/netstandard2.0/Iced.xml"
-      ]
-    },
-    "ini-parser/2.5.2": {
-      "sha512": "hp3gKmC/14+6eKLgv7Jd1Z7OV86lO+tNfOXr/stQbwmRhdQuXVSvrRAuAe7G5+lwhkov0XkqZ8/bn1PYWMx6eg==",
-      "type": "package",
-      "path": "ini-parser/2.5.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ini-parser.2.5.2.nupkg.sha512",
-        "ini-parser.nuspec",
-        "lib/net20/INIFileParser.dll",
-        "lib/net20/INIFileParser.dll.mdb",
-        "lib/net20/INIFileParser.xml"
       ]
     },
     "LiteNetLib/0.8.3.1": {
@@ -3804,32 +3781,29 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Adventure.SDK >= 0.0.5",
+      "Adventure.SDK >= 0.0.6",
       "Reloaded.Hooks >= 2.3.4",
       "Reloaded.Messaging >= 1.1.0",
       "Reloaded.Messaging.Serializer.SystemTextJson >= 1.0.1",
       "Reloaded.Mod.Interfaces >= 1.6.0",
-      "TwitchLib >= 3.1.0",
-      "ini-parser >= 2.5.2"
+      "TwitchLib >= 3.1.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\DeaTh\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+      "projectUniqueName": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
       "projectName": "Adventure.Misc.ChatCheat.ReloadedII",
-      "projectPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+      "projectPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
       "packagesPath": "C:\\Users\\DeaTh\\.nuget\\packages\\",
-      "outputPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
+      "outputPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
         "C:\\Users\\DeaTh\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3859,7 +3833,7 @@
         "dependencies": {
           "Adventure.SDK": {
             "target": "Package",
-            "version": "[0.0.5, )"
+            "version": "[0.0.6, )"
           },
           "Reloaded.Hooks": {
             "target": "Package",
@@ -3880,10 +3854,6 @@
           "TwitchLib": {
             "target": "Package",
             "version": "[3.1.0, )"
-          },
-          "ini-parser": {
-            "target": "Package",
-            "version": "[2.5.2, )"
           }
         },
         "imports": [
@@ -3904,17 +3874,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'ini-parser 2.5.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
-      "libraryId": "ini-parser",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }
