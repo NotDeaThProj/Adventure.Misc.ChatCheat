@@ -85,7 +85,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch
         {
             if (e.ChatMessage.Message.StartsWith(Program.Configuration.TwitchPrefix))
             {
-                string message = e.ChatMessage.Message[1..];
+                string[] message = e.ChatMessage.Message[1..].Split(' ');
                 new ChatMessage(e.ChatMessage.DisplayName, message, "Twitch");
             }
         }

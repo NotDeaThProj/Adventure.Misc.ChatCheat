@@ -5,9 +5,9 @@ using static Adventure.SDK.Library.Classes.Native.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
-    public unsafe class SpawnCart : SADX.Custom.Objects.Cart
+    public unsafe class SpawnCart : Objects.Cart
     {
-        SpawnCart(Color color) : base()
+        public SpawnCart(Color color) : base()
         {
             // Store information of the player character
             Info* characterInfo = GetCharacterGameObject(Players.P1)->Info;
