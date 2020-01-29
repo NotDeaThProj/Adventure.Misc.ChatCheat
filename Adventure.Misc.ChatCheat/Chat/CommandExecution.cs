@@ -10,30 +10,19 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
     {
         // Properties
         public string Sender { get; }
-        public Message Command { get; }
+        public string CommandText { get; }
         public string Service { get; }
+        public List<string> Arguments { get; }
 
         // Constructors
-        public ChatMessage(string sender, string[] message, string service)
+        public ChatMessage(string sender, string commandText, List<string> commandArguments, string service)
         {
             Sender = sender;
-            Command = new Message(message[0], message[1]);
+            CommandText = commandText;
             Service = service;
+            Arguments = commandArguments;
 
             CommandExecution.SetCommand = this;
-        }
-
-        public struct Message
-        {
-            public string Name { get; }
-            
-            public string Argument { get; }
-
-            public Message(string name, string argument)
-            {
-                Name = name;
-                Argument = argument;
-            }
         }
     }
 
@@ -51,10 +40,10 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             _commands.TryDequeue(out ChatMessage currentMessage);
             if (!string.IsNullOrEmpty(currentMessage.Sender))
             {
-                if (Controller.CommandDictionary.ContainsKey(currentMessage.Command.Name))
+                if (Controller.CommandDictionary.ContainsKey(currentMessage.CommandText))
                 {
-                    Command currentCommand = Controller.CommandDictionary[currentMessage.Command.Name];
-                    currentCommand.Function(currentMessage.Command, currentMessage.Sender);
+                    Command currentCommand = Controller.CommandDictionary[currentMessage.CommandText];
+                    currentCommand.Function(currentMessage.CommandText, currentMessage.Arguments, currentMessage.Sender);
                 }
             }
 

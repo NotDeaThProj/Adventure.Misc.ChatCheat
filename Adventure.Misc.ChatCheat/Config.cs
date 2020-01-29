@@ -17,22 +17,7 @@ namespace Adventure.Misc.ChatCheat
             return "Chat Command";
         }
     }
-    public struct MultiCommandConfig
-    {
-        [Description("Name of the command.")]
-        public string Name { get; set; }
 
-        [Description("Cooldown applied to the command, in seconds.")]
-        public int Cooldown { get; set; }
-
-        [Description("List of arguments that can be used with the command.")]
-        public List<string> Arguments { get; set; }
-
-        public override string ToString()
-        {
-            return "Chat Command with Arguments";
-        }
-    }
     public class Config : Configurable<Config>
     {
         private const string CharacterCommands = "Swap Character:";
@@ -111,21 +96,6 @@ namespace Adventure.Misc.ChatCheat
         [Category("Miscelanious")]
         [DisplayName("Spawn Cart")]
         [Description("Spawns a cart at the player's location.")]
-        public MultiCommandConfig CreateCart { get; set; }
-            = new MultiCommandConfig
-            {
-                Name = "supersonicracing",
-                Cooldown = 30,
-                Arguments = new List<string>()
-                {
-                    "black",
-                    "blue",
-                    "green",
-                    "lightblue",
-                    "orange",
-                    "pink",
-                    "red"
-                }
-            };
+        public CommandConfig CreateCart { get; set; } = new CommandConfig { Name = "supersonicracing", Cooldown = 30 };
     }
 }

@@ -25,7 +25,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             };
 
             // Teleport Cart to the player's position
-            Position = Info->Position;
+            Position = characterInfo->Position;
         }
     }
 }

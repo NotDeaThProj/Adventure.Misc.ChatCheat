@@ -10,7 +10,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
     public struct Command
     {
         // Command to execute
-        public Action<ChatMessage.Message, string> Function;
+        public Action<string, List<string>, string> Function;
 
         // Cooldown is in seconds
         public int Cooldown;
@@ -26,147 +26,152 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         {
             { Program.Configuration.SwapSonic.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToSonic),
+                    Function = new Action<string, List<string>, string>(SwapToSonic),
                     Cooldown = Program.Configuration.SwapSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapSuper.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToSuper),
+                    Function = new Action<string, List<string>, string>(SwapToSuper),
                     Cooldown = Program.Configuration.SwapSuper.Cooldown,
                     LastActivated =_defaultTime
                 }
             },
             { Program.Configuration.SwapMetalSonic.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToMetalSonic),
+                    Function = new Action<string, List<string>, string>(SwapToMetalSonic),
                     Cooldown = Program.Configuration.SwapMetalSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             /*{ Program.Configuration.SwapEggman.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToEggman),
+                    Function = new Action<string, List<string>, string>(SwapToEggman),
                     Cooldown = Program.Configuration.SwapEggman.Cooldown,
                     LastActivated = _defaultTime
                 }
             },*/
             { Program.Configuration.SwapTails.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToTails),
+                    Function = new Action<string, List<string>, string>(SwapToTails),
                     Cooldown = Program.Configuration.SwapTails.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapKnuckles.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToKnuckles),
+                    Function = new Action<string, List<string>, string>(SwapToKnuckles),
                     Cooldown = Program.Configuration.SwapKnuckles.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             /*{ Program.Configuration.SwapTikal.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToTikal),
+                    Function = new Action<string, List<string>, string>(SwapToTikal),
                     Cooldown = Program.Configuration.SwapTikal.Cooldown,
                     LastActivated = _defaultTime
                 }
             },*/
             { Program.Configuration.SwapAmy.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToAmy),
+                    Function = new Action<string, List<string>, string>(SwapToAmy),
                     Cooldown = Program.Configuration.SwapAmy.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapBig.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToBig),
+                    Function = new Action<string, List<string>, string>(SwapToBig),
                     Cooldown = Program.Configuration.SwapBig.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapGamma.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(SwapToGamma),
+                    Function = new Action<string, List<string>, string>(SwapToGamma),
                     Cooldown = Program.Configuration.SwapGamma.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.CreateCart.Name, new Command()
                 {
-                    Function = new Action<ChatMessage.Message, string>(CreateNewCart),
+                    Function = new Action<string, List<string>, string>(CreateNewCart),
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
                     LastActivated = _defaultTime,
                 }
             }
         };
 
-        public unsafe static void SwapToSonic(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToSonic(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Sonic, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public static void SwapToSuper(ChatMessage.Message command, string messageSender)
+        public static void SwapToSuper(string command, List<string> arguments, string messageSender)
         {
             new SuperStateManager(Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public unsafe static void SwapToMetalSonic(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToMetalSonic(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Sonic, Players.P1, true);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        /*public unsafe static void SwapToEggman(ChatMessage.Message command, string messageSender)
+        /*public unsafe static void SwapToEggman(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Eggman, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }*/
-        public unsafe static void SwapToTails(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToTails(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Tails, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public unsafe static void SwapToKnuckles(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToKnuckles(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Knuckles, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        /*public unsafe static void SwapToTikal(ChatMessage.Message command, string messageSender)
+        /*public unsafe static void SwapToTikal(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Tikal, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }*/
-        public unsafe static void SwapToAmy(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToAmy(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Amy, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public unsafe static void SwapToBig(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToBig(string command, List<string> arguments, string messageSender)
         {
             new SwapCharacter(Character.Big, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public unsafe static void SwapToGamma(ChatMessage.Message command, string messageSender)
+        public unsafe static void SwapToGamma(string command, List<string> arguments, string messageSender)
         {
             // TODO - FIX CRASH
             new SwapCharacter(Character.Gamma, Players.P1);
-            LogCommand(messageSender, command);
+            LogCommand(messageSender, command, arguments);
         }
-        public unsafe static void CreateNewCart(ChatMessage.Message command, string messageSender)
+        public unsafe static void CreateNewCart(string command, List<string> arguments, string messageSender)
         {
-            Enum.TryParse(command.Argument, true, out SDK.Library.API.Objects.Color color);
-            new SpawnCart(color);
-
+            if (arguments != null)
+            {
+                Enum.TryParse(arguments[0], true, out SDK.Library.API.Objects.Color color);
+                new SpawnCart(color);
+                LogCommand(messageSender, command, arguments);
+            }
         }
 
-        public static void LogCommand(string sender, ChatMessage.Message command)
+        public static void LogCommand(string sender, string command, List<string> arguments)
         {
             Program.Logger.Write(sender, Color.Red);
             Program.Logger.Write(" has activated the ", Color.White);
-            Program.Logger.Write(string.Join(" ", new string[] { command.Name, command.Argument }), Color.Yellow);
-            Program.Logger.WriteLine(" code!", Color.White);
+            Program.Logger.Write($"{command} ", Color.Yellow);
+            if (arguments.Count > 0)
+                Program.Logger.Write($"{string.Join(" ", arguments)} ", Color.Yellow);
+            Program.Logger.WriteLine("code!", Color.White);
         }
     }
 }

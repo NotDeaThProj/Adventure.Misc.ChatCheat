@@ -19,7 +19,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         private Configurator _configurator;
         public static Config Configuration;
 
-        public async void Start(IModLoaderV1 loader)
+        public void Start(IModLoaderV1 loader)
         {
             _modLoader = (IModLoader)loader;
             Logger = (ILogger)_modLoader.GetLogger();
@@ -31,8 +31,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
             Configuration.ConfigurationUpdated += OnConfigurationUpdated;
 
             /* Your mod code starts here. */
-            _twitchBot.InitEvents();
-            await _twitchBot.Connect();
+            _twitchBot.Connect();
             EnableHooks();
         }
         private void OnConfigurationUpdated(IConfigurable obj)
@@ -54,16 +53,16 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         }
 
         /* Mod loader actions. */
-        public async void Suspend()
+        public void Suspend()
         {
             _onFrame.IsEnabled = false;
-            await _twitchBot.Disconnect();
+            _twitchBot.Disconnect();
         }
 
-        public async void Resume()
+        public void Resume()
         {
             _onFrame.IsEnabled = true;
-            await _twitchBot.Connect();
+            _twitchBot.Connect();
         }
 
         public void Unload() { }
@@ -80,7 +79,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         public void EnableHooks()
         {
             _onFrame = new OnFrameHook();
-            Console.WriteLine(_onFrame.HookAddress);
+            _onFrame.IsEnabled = true;
         }
     }
 }
