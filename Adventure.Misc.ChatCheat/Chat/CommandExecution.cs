@@ -1,8 +1,6 @@
-﻿using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
-using System;
+﻿using System.Collections.Generic;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {

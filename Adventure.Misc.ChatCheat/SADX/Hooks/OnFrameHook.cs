@@ -1,5 +1,4 @@
 ﻿using Reloaded.Hooks;
-using Reloaded.Hooks.Definitions;
 using Reloaded.Hooks.Definitions.X86;
 using System.Runtime.InteropServices;
 using Adventure.Misc.ChatCheat.ReloadedII.Chat;

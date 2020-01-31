@@ -1,12 +1,12 @@
-﻿using Adventure.SDK.Library.API.Audio;
+﻿using System;
+using Adventure.SDK.Library.API.Audio;
 using Adventure.SDK.Library.API.Objects.Main;
 using Adventure.SDK.Library.Definitions.Enums;
-using System;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
 {
-    public unsafe class SuperStateManager : GameObject
+    public unsafe class SuperStateManager : Player
     {
         public bool IsPlayerSuper
         {

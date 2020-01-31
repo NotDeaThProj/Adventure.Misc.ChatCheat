@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.Generic;
+using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
-using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
-using Adventure.SDK.Library.Definitions.Enums;
-using Adventure.SDK.Library.Definitions.Structures.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -160,7 +158,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         {
             if (arguments != null)
             {
-                Enum.TryParse(arguments[0], true, out SDK.Library.API.Objects.Color color);
+                Enum.TryParse(arguments[0], true, out SDK.Library.API.Objects.Cart.CartColor color);
                 SpawnCart asd = new SpawnCart(color);
                 Console.WriteLine((IntPtr)asd.Handle);
                 LogCommand(messageSender, command, arguments);

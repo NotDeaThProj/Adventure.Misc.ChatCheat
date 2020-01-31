@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -51,6 +47,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch
             if (_client.IsConnected)
             {
                 Program.Logger.WriteLine($"Disconnecting from {Program.Configuration.TwitchChannelName}...", Color.Fuchsia);
+                _client.OnDisconnected += Client_OnDisconnected;
 
                 try
                 {
@@ -72,16 +69,6 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch
         {
             Program.Logger.WriteLine($"Succesfully connected to {Program.Configuration.TwitchChannelName}!", Color.Lime);
         }
-
-        /*private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
-        {
-            if (e.ChatMessage.Message.StartsWith(Program.Configuration.TwitchPrefix)
-            {
-                string[] message = e.ChatMessage.Message[1..].Split(' ');
-                ChatMessage asd = new ChatMessage(e.ChatMessage.DisplayName, message, "Twitch");
-                Console.WriteLine(asd);
-            }
-        }*/
 
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {

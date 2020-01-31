@@ -6,7 +6,7 @@ using static Adventure.SDK.Library.Classes.Native.Player;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
-    public unsafe class SwapCharacter : GameObject
+    public unsafe class SwapCharacter : Player
     {
         private static readonly Dictionary<Character, IntPtr> _characterMainFunctions = new Dictionary<Character, IntPtr>()
         {

@@ -3,7 +3,7 @@ using Adventure.SDK.Library.API.Objects;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
 using Reloaded.Memory.Interop;
-using static Adventure.SDK.Library.Classes.Native.GameObject;
+using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
@@ -18,7 +18,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Distance = 4000100
         });
 
-        public SpawnCart(Color color) : base()
+        public SpawnCart(CartColor color) : base()
         {
             // Load Cart textures every time
             LoadPVMFile("OBJ_SHAREOBJ", (IntPtr)0x38AEB70);
@@ -38,9 +38,9 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Color = color;
             Size = (characterInfo->CharacterID) switch
             {
-                Character.Gamma => Size.Long,
-                Character.Big => Size.Wide,
-                _ => Size.Normal,
+                Character.Gamma => CartSize.Long,
+                Character.Big => CartSize.Wide,
+                _ => CartSize.Normal,
             };
 
             // Teleport Cart to the player's position
