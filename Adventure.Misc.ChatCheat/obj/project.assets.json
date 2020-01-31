@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Adventure.SDK/0.0.6": {
+      "Adventure.SDK/0.0.9": {
         "type": "package",
         "dependencies": {
           "Reloaded.Hooks": "2.3.4"
@@ -1158,14 +1158,14 @@
     }
   },
   "libraries": {
-    "Adventure.SDK/0.0.6": {
-      "sha512": "JYIh26mS2l0j9C0jBgcM+AOAJtf4lfpgQSB9MV3wacA5anesyWzP0dSzvC/LaFubGRl2rpTQa1xb0ZWV6GwB5g==",
+    "Adventure.SDK/0.0.9": {
+      "sha512": "TREgHrp6tR2dUNQbH54Pse8o18crLdQOl+X/Zr0KUOTHFWt1+pv7FKW/AHn2CTDBIUiN2h02cTFq6S/oBe37aQ==",
       "type": "package",
-      "path": "adventure.sdk/0.0.6",
+      "path": "adventure.sdk/0.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "adventure.sdk.0.0.6.nupkg.sha512",
+        "adventure.sdk.0.0.9.nupkg.sha512",
         "adventure.sdk.nuspec",
         "lib/netcoreapp3.1/Adventure.SDK.dll"
       ]
@@ -3781,7 +3781,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Adventure.SDK >= 0.0.6",
+      "Adventure.SDK >= 0.0.9",
       "Reloaded.Hooks >= 2.3.4",
       "Reloaded.Messaging >= 1.1.0",
       "Reloaded.Messaging.Serializer.SystemTextJson >= 1.0.1",
@@ -3835,7 +3835,7 @@
         "dependencies": {
           "Adventure.SDK": {
             "target": "Package",
-            "version": "[0.0.6, )"
+            "version": "[0.0.9, )"
           },
           "Reloaded.Hooks": {
             "target": "Package",

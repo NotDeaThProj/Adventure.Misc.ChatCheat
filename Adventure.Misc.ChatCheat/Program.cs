@@ -12,6 +12,8 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         // Twitch Variables/Constants
         private static readonly Client _twitchBot = new Client();
         private static OnFrameHook _onFrame;
+        private static PlaceCharacterInCartHook _placeCharacterInCart;
+        private static LoadObjectHook _loadObjectHook;
 
         private const string ModId = "adventure.misc.chatcheat";
         private IModLoader _modLoader;
@@ -56,12 +58,14 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         public void Suspend()
         {
             _onFrame.IsEnabled = false;
+            _placeCharacterInCart.IsEnabled = false;
             _twitchBot.Disconnect();
         }
 
         public void Resume()
         {
             _onFrame.IsEnabled = true;
+            _placeCharacterInCart.IsEnabled = true;
             _twitchBot.Connect();
         }
 
@@ -79,7 +83,8 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         public void EnableHooks()
         {
             _onFrame = new OnFrameHook();
-            _onFrame.IsEnabled = true;
+            _placeCharacterInCart = new PlaceCharacterInCartHook();
+            _loadObjectHook = new LoadObjectHook();
         }
     }
 }

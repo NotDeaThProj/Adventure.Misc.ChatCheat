@@ -6,35 +6,23 @@ using Adventure.Misc.ChatCheat.ReloadedII.Chat;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks
 {
-    public class OnFrameHook
+    // Delegates
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [Function(CallingConventions.Cdecl)]
+    public delegate int OnFrame();
+
+    public class OnFrameHook : Main.Hook<OnFrame>
     {
-        // Delegates
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [Function(CallingConventions.Cdecl)]
-        private delegate int OnFrame();
-
-        // Variables/Constants
-        private static long _hookAddress = 0x426050;
-        private static OnFrame _function = CommandExecution.ExecuteCommands;
-        private static IHook<OnFrame> _onFrame = new Hook<OnFrame>(_function, _hookAddress).Activate();
-
-        public long HookAddress { get => _hookAddress; }
-
-        public bool IsEnabled
+        static OnFrameHook()
         {
-            get => _onFrame.IsHookEnabled;
-            set
-            {
-                if (value)
-                    _onFrame.Enable();
-                else
-                    _onFrame.Disable();
-            }
+            Address = 0x426050;
+            Function = CommandExecution.ExecuteCommands;
+            HookFunction = new Hook<OnFrame>(Function, Address).Activate();
         }
 
         public int OriginalFunction
         {
-            get => _onFrame.OriginalFunction();
+            get => HookFunction.OriginalFunction();
         }
     }
 }
