@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
+using static Adventure.SDK.Library.API.Objects.Cart;
+using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
+using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
+using Adventure.SDK.Library.API.Objects.Common;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
     public struct Command
     {
         // Command to execute
-        public Action<string, List<string>, string> Function;
+        public Action<ChatMessage> Function;
 
         // Cooldown is in seconds
         public int Cooldown;
@@ -26,153 +30,183 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         {
             { Program.Configuration.SwapSonic.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToSonic),
+                    Function = new Action<ChatMessage>(SwapToSonic),
                     Cooldown = Program.Configuration.SwapSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapSuper.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToSuper),
+                    Function = new Action<ChatMessage>(SwapToSuper),
                     Cooldown = Program.Configuration.SwapSuper.Cooldown,
                     LastActivated =_defaultTime
                 }
             },
             { Program.Configuration.SwapMetalSonic.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToMetalSonic),
+                    Function = new Action<ChatMessage>(SwapToMetalSonic),
                     Cooldown = Program.Configuration.SwapMetalSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             /*{ Program.Configuration.SwapEggman.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToEggman),
+                    Function = new Action<ChatMessage>(SwapToEggman),
                     Cooldown = Program.Configuration.SwapEggman.Cooldown,
                     LastActivated = _defaultTime
                 }
             },*/
             { Program.Configuration.SwapTails.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToTails),
+                    Function = new Action<ChatMessage>(SwapToTails),
                     Cooldown = Program.Configuration.SwapTails.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapKnuckles.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToKnuckles),
+                    Function = new Action<ChatMessage>(SwapToKnuckles),
                     Cooldown = Program.Configuration.SwapKnuckles.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             /*{ Program.Configuration.SwapTikal.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToTikal),
+                    Function = new Action<ChatMessage>(SwapToTikal),
                     Cooldown = Program.Configuration.SwapTikal.Cooldown,
                     LastActivated = _defaultTime
                 }
             },*/
             { Program.Configuration.SwapAmy.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToAmy),
+                    Function = new Action<ChatMessage>(SwapToAmy),
                     Cooldown = Program.Configuration.SwapAmy.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapBig.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToBig),
+                    Function = new Action<ChatMessage>(SwapToBig),
                     Cooldown = Program.Configuration.SwapBig.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapGamma.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(SwapToGamma),
+                    Function = new Action<ChatMessage>(SwapToGamma),
                     Cooldown = Program.Configuration.SwapGamma.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.CreateCart.Name, new Command()
                 {
-                    Function = new Action<string, List<string>, string>(CreateNewCart),
+                    Function = new Action<ChatMessage>(CreateNewCart),
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
                     LastActivated = _defaultTime,
                 }
             }
         };
 
-        public unsafe static void SwapToSonic(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToSonic(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Sonic, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Sonic.", chatMessage.Service);
         }
-        public static void SwapToSuper(string command, List<string> arguments, string messageSender)
+        public static void SwapToSuper(ChatMessage chatMessage)
         {
             new SuperStateManager(Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player Super.", chatMessage.Service);
         }
-        public unsafe static void SwapToMetalSonic(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToMetalSonic(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Sonic, Players.P1, true);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Metal Sonic.", chatMessage.Service);
         }
-        /*public unsafe static void SwapToEggman(string command, List<string> arguments, string messageSender)
+        /*public unsafe static void SwapToEggman(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Eggman, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Eggman.", chatMessage.Service);
         }*/
-        public unsafe static void SwapToTails(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToTails(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Tails, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Tails.", chatMessage.Service);
         }
-        public unsafe static void SwapToKnuckles(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToKnuckles(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Knuckles, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Knuckles.", chatMessage.Service);
         }
-        /*public unsafe static void SwapToTikal(string command, List<string> arguments, string messageSender)
+        /*public unsafe static void SwapToTikal(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Tikal, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Tikal.", chatMessage.Service);
         }*/
-        public unsafe static void SwapToAmy(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToAmy(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Amy, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Amy.", chatMessage.Service);
         }
-        public unsafe static void SwapToBig(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToBig(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Big, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Big.", chatMessage.Service);
         }
-        public unsafe static void SwapToGamma(string command, List<string> arguments, string messageSender)
+        public unsafe static void SwapToGamma(ChatMessage chatMessage)
         {
             // TODO - FIX CRASH
             new SwapCharacter(Character.Gamma, Players.P1);
-            LogCommand(messageSender, command, arguments);
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has turned the player into Gamma.", chatMessage.Service);
         }
-        public unsafe static void CreateNewCart(string command, List<string> arguments, string messageSender)
+        public unsafe static void CreateSnowboard(ChatMessage chatMessage)
         {
-            if (arguments != null)
+            new Snowboard();
+        }
+        public unsafe static void CreateNewCart(ChatMessage chatMessage)
+        {
+            if (chatMessage.Arguments != null)
             {
-                Enum.TryParse(arguments[0], true, out SDK.Library.API.Objects.Cart.CartColor color);
-                SpawnCart asd = new SpawnCart(color);
-                Console.WriteLine((IntPtr)asd.Handle);
-                LogCommand(messageSender, command, arguments);
+                Enum.TryParse(chatMessage.Arguments[0], true, out CartColor color);
+                new SpawnCart(color);
+                LogCommand(chatMessage);
+                BotReply($"{chatMessage.Sender} has spawned a cart.", chatMessage.Service);
             }
         }
 
-        public static void LogCommand(string sender, string command, List<string> arguments)
+        public static void LogCommand(ChatMessage chatMessage)
         {
-            Program.Logger.Write(sender, Color.Red);
+            Program.Logger.Write(chatMessage.Sender, Color.Red);
+            
             Program.Logger.Write(" has activated the ", Color.White);
-            Program.Logger.Write($"{command} ", Color.Yellow);
-            if (arguments.Count > 0)
-                Program.Logger.Write($"{string.Join(" ", arguments)} ", Color.Yellow);
+            
+            Program.Logger.Write($"{chatMessage.CommandText} ", Color.Yellow);
+            if (chatMessage.Arguments.Count > 0)
+                Program.Logger.Write($"{string.Join(" ", chatMessage.Arguments)} ", Color.Yellow);
+            
             Program.Logger.WriteLine("code!", Color.White);
+        }
+
+        public static void BotReply(string message, StreamingService service)
+        {
+            switch (service)
+            {
+                case StreamingService.Twitch:
+                    if (Program.Configuration.TwitchReply)
+                        TwitchClient.SendMessage(Program.Configuration.TwitchChannelName, message);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

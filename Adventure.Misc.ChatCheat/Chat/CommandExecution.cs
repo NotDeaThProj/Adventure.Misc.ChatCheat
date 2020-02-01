@@ -6,14 +6,19 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
     public struct ChatMessage
     {
+        public enum StreamingService
+        {
+            Twitch
+        }
+
         // Properties
         public string Sender { get; }
         public string CommandText { get; }
-        public string Service { get; }
+        public StreamingService Service { get; }
         public List<string> Arguments { get; }
 
         // Constructors
-        public ChatMessage(string sender, string commandText, List<string> commandArguments, string service)
+        public ChatMessage(string sender, string commandText, List<string> commandArguments, StreamingService service)
         {
             Sender = sender;
             CommandText = commandText;
@@ -41,7 +46,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 if (Controller.CommandDictionary.ContainsKey(currentMessage.CommandText))
                 {
                     Command currentCommand = Controller.CommandDictionary[currentMessage.CommandText];
-                    currentCommand.Function(currentMessage.CommandText, currentMessage.Arguments, currentMessage.Sender);
+                    currentCommand.Function(currentMessage);
                 }
             }
 

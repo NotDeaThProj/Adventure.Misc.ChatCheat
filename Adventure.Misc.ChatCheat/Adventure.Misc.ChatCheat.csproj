@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Adventure.SDK" Version="0.1.1" />
+    <PackageReference Include="Adventure.SDK" Version="0.1.2" />
     <PackageReference Include="Reloaded.Hooks" Version="2.3.4" />
     <PackageReference Include="Reloaded.Messaging" Version="1.1.0" />
     <PackageReference Include="Reloaded.Messaging.Serializer.SystemTextJson" Version="1.0.1" />
