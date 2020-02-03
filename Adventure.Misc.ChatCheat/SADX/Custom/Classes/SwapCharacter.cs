@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
-using Adventure.SDK.Library.API.Objects.Main;
+using Adventure.SDK.Library.API.Objects.Player;
 using static Adventure.SDK.Library.Classes.Native.Player;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
@@ -22,33 +22,38 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 
         public SwapCharacter(Character character, Players playerID, bool isMetalSonic = false) : base(playerID)
         {
-            // Store Original CharacterData
+            // Store original CharacterData
             SDK.Library.Definitions.Structures.GameObject.CharacterData* oldCharacterData = CharacterData;
 
             NextAction = PlayerAction.ReturnToNormal;
 
-            // Set Metal Sonic Flag 
+            // Set metal sonic flag
             bool* isMetalSonicFlag = (bool*)0x3B18DB5;
             *isMetalSonicFlag = isMetalSonic;
 
-            // Change Main of Game Object
+            // Change main function of the game object
             Handle->mainSub = _characterMainFunctions[character];
 
+            // Delete old character
+            if (character == Character.Gamma)
+                Handle->DeleteSub(Handle);
+
+            // Set new character ID
             CharacterID = character;
 
-            // Set Character Action to Initialize
-            Info->Action = 0;
+            // Set action to intialize
+            Info->Action = (byte)PlayerObjectAction.Initialize;
 
-            // Cancel Special State of Character
+            // Cancel special states of the character
             Info->Status &= ~(Status.Attack | Status.Ball | Status.LightDash | Status.Unknown3);
 
-            // Free Player Collision
+            // Free player collision
             Info->CollisionInfo = null;
 
-            // Load New Character
+            // Load new character
             Handle->MainSub(Handle);
 
-            // Copy CharacterData Stuff from Old Character
+            // Copy CharacterData stuff from old character
             CharacterData->Powerups       = oldCharacterData->Powerups;
             CharacterData->JumpTime       = oldCharacterData->JumpTime;
             CharacterData->UnderwaterTime = oldCharacterData->UnderwaterTime;
@@ -56,6 +61,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             CharacterData->Speed          = oldCharacterData->Speed;
             CharacterData->HeldObject     = oldCharacterData->HeldObject;
 
+            // Load special player animations
             if (character != Character.Eggman && character != Character.Tikal)
                 LoadSpecialPlayerAnimations(character);
         }

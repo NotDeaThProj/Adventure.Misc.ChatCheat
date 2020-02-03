@@ -1,20 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {}
+    "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {
+    "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+        "projectUniqueName": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
         "projectName": "Adventure.Misc.ChatCheat.ReloadedII",
-        "projectPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
+        "projectPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat.csproj",
         "packagesPath": "C:\\Users\\DeaTh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DeaTh\\Source\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
+        "outputPath": "D:\\Repos\\Adventure.Misc.ChatCheat\\Adventure.Misc.ChatCheat\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\DeaTh\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,7 +45,7 @@
           "dependencies": {
             "Adventure.SDK": {
               "target": "Package",
-              "version": "[0.1.2, )"
+              "version": "[0.1.8.3, )"
             },
             "Reloaded.Hooks": {
               "target": "Package",

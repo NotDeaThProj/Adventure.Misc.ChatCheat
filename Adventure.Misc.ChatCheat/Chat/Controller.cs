@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
-using static Adventure.SDK.Library.API.Objects.Cart;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
+using static Adventure.SDK.Library.API.Objects.StageObjects.TwinklePark.Cart;
 using Adventure.SDK.Library.API.Objects.Common;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
+using Adventure.SDK.Library.Definitions.Structures.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -49,13 +51,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     LastActivated = _defaultTime
                 }
             },
-            /*{ Program.Configuration.SwapEggman.Name, new Command()
+            { Program.Configuration.SwapEggman.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToEggman),
                     Cooldown = Program.Configuration.SwapEggman.Cooldown,
                     LastActivated = _defaultTime
                 }
-            },*/
+            },
             { Program.Configuration.SwapTails.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToTails),
@@ -70,13 +72,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     LastActivated = _defaultTime
                 }
             },
-            /*{ Program.Configuration.SwapTikal.Name, new Command()
+            { Program.Configuration.SwapTikal.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToTikal),
                     Cooldown = Program.Configuration.SwapTikal.Cooldown,
                     LastActivated = _defaultTime
                 }
-            },*/
+            },
             { Program.Configuration.SwapAmy.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToAmy),
@@ -115,7 +117,10 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         }
         public static void SwapToSuper(ChatMessage chatMessage)
         {
-            new SuperStateManager(Players.P1);
+            new SuperStateManager(Players.P1)
+            {
+                IsPlayerSuper = true
+            };
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player Super.", chatMessage.Service);
         }
@@ -125,12 +130,12 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player into Metal Sonic.", chatMessage.Service);
         }
-        /*public unsafe static void SwapToEggman(ChatMessage chatMessage)
+        public unsafe static void SwapToEggman(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Eggman, Players.P1);
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player into Eggman.", chatMessage.Service);
-        }*/
+        }
         public unsafe static void SwapToTails(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Tails, Players.P1);
@@ -143,12 +148,12 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player into Knuckles.", chatMessage.Service);
         }
-        /*public unsafe static void SwapToTikal(ChatMessage chatMessage)
+        public unsafe static void SwapToTikal(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Tikal, Players.P1);
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player into Tikal.", chatMessage.Service);
-        }*/
+        }
         public unsafe static void SwapToAmy(ChatMessage chatMessage)
         {
             new SwapCharacter(Character.Amy, Players.P1);
@@ -181,6 +186,8 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 LogCommand(chatMessage);
                 BotReply($"{chatMessage.Sender} has spawned a cart.", chatMessage.Service);
             }
+            else
+                new SpawnCart((CartColor)new Random().Next(Enum.GetNames(typeof(CartColor)).Length));
         }
 
         public static void LogCommand(ChatMessage chatMessage)

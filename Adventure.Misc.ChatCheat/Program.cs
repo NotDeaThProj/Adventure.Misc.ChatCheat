@@ -13,7 +13,6 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         private static readonly Client _twitchBot = new Client();
         private static OnFrameHook _onFrame;
         private static PlaceCharacterInCartHook _placeCharacterInCart;
-        private static LoadObjectHook _loadObjectHook;
 
         private const string ModId = "adventure.misc.chatcheat";
         private IModLoader _modLoader;
@@ -84,7 +83,6 @@ namespace Adventure.Misc.ChatCheat.ReloadedII
         {
             _onFrame = new OnFrameHook();
             _placeCharacterInCart = new PlaceCharacterInCartHook();
-            _loadObjectHook = new LoadObjectHook();
         }
     }
 }

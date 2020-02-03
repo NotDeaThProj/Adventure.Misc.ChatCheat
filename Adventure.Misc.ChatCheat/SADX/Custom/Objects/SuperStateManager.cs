@@ -1,8 +1,13 @@
 ﻿using System;
 using Adventure.SDK.Library.API.Audio;
-using Adventure.SDK.Library.API.Objects.Main;
 using Adventure.SDK.Library.Definitions.Enums;
+using Adventure.SDK.Library.API.Objects.Player;
+using Adventure.SDK.Library.Definitions.Structures.GameObject;
+using Reloaded.Memory.Interop;
+using Reloaded.Memory.Sources;
 using static Adventure.SDK.Library.Classes.Native.PVM;
+using Adventure.SDK.Library.API.Objects.Player.Physics;
+using Adventure.SDK.Library.API.Objects.Common;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
 {
@@ -21,51 +26,51 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         }
 
         // Variables/Constants
-        private AudioManager _audioManager = new AudioManager();
+        private readonly AudioManager _audioManager = new AudioManager();
         private bool _isPlayerSuper;
-        private Players _playerID;
-        private Stage* _lastLevel;
-        private byte* _lastAct;
+        private Stage _lastStage;
         private Music _levelSong;
         private long _timer = 0;
-        private SDK.Library.Definitions.Structures.GameObject.GameObject* _superStateManager;
+        private static Pinnable<GameObject> _superStateManager =
+            new Pinnable<GameObject>(new GameObject());
 
         public SuperStateManager(Players playerID) : base(playerID)
         {
+            // Initialize Super Sonic Weld Data
+            Memory.Instance.SafeWrite((IntPtr)0x49AC6A, (ushort)0x9090);
+
             LoadPVMFile("SUPERSONIC", (IntPtr)0x142272C);
-            _superStateManager = CreateGameObject(0, 2);
-            _playerID = playerID;
+            _superStateManager.Value = *CreateGameObject(0, 2);
         }
 
         public override void Main()
         {
-            if (_isPlayerSuper)
+            if (_isPlayerSuper && (_audioManager.Song != Music.NoMusic && _lastStage != GetStage()))
+                PlaySuperTheme();
+
+            if (IsControllerEnabled && PlayerID == 0 && _isPlayerSuper)
             {
-                byte* currentAct = (byte*)0x3B22DEC;
-                Stage* currentLevel = (Stage*)0x3B22DCC;
-                if (_audioManager.Song != Music.NoMusic && *currentLevel != *_lastLevel && *currentAct != *_lastAct)
-                    PlaySuperTheme();
+                if (Rings == 0)
+                    Delete();
+
+                ++_timer;
+                if (_timer % 60 == 0)
+                    Rings--;
             }
         }
 
         public override void Delete()
         {
             UnsuperPlayer();
-            _superStateManager->mainSub = _superStateManager->displaySub = _superStateManager->deleteSub = IntPtr.Zero;
+            _superStateManager.Value.mainSub = _superStateManager.Value.displaySub = _superStateManager.Value.deleteSub = IntPtr.Zero;
         }
 
         private void TurnPlayerSuper()
         {
             Info->Status &= ~Status.LightDash;
             CharacterData->Upgrades |= Upgrade.SuperSonic;
-
-            /*if (CharacterID != Character.Sonic)
-			{
-				GameObject superAura = new GameObject(2, 2, (IntPtr)0x55FAF0);
-				SuperPhysics superPhysics = new SuperPhysics(PlayerID);
-			}*/
-            GameObject superAura = new GameObject(2, 2, (IntPtr)0x55FAF0);
-            //SuperPhysics superPhysics = new SuperPhysics(PlayerID);
+            new SuperAura();
+            new SuperPhysics();
 
             switch (CharacterID)
             {
@@ -91,7 +96,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             }
             CharacterData->Upgrades &= ~Upgrade.SuperSonic;
 
-            if (_playerID == 0 && _levelSong != 0)
+            if (PlayerID == 0 && _levelSong != 0)
             {
                 RestoreStageSong();
             }
@@ -108,10 +113,39 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         {
             _levelSong = _audioManager.Song;
 
-            _lastAct = (byte*)0x3B22DEC;
-            _lastLevel = (Stage*)0x3B22DCC;
+            _lastStage = GetStage();
 
             _audioManager.Song = Music.SuperSonic;
+        }
+
+        private Stage GetStage()
+        {
+            byte* currentAct = (byte*)0x3B22DEC;
+            Stage* currentLevel = (Stage*)0x3B22DCC;
+            switch (*currentLevel)
+            {
+                case Stage.HedgehogHammer:
+                case Stage.EmeraldCoast:
+                case Stage.WindyValley:
+                case Stage.TwinklePark:
+                case Stage.SpeedHighway:
+                case Stage.RedMountain:
+                case Stage.SkyDeck:
+                case Stage.LostWorld:
+                case Stage.IceCap:
+                case Stage.Casinopolis:
+                case Stage.FinalEgg:
+                case Stage.HotShelter:
+                case Stage.StationSquare:
+                case Stage.EggCarrierOutside:
+                case Stage.EggCarrierInside:
+                case Stage.MysticRuins:
+                case Stage.Past:
+                case Stage.TwinkleCircuit:
+                    return (Stage)(((byte)*currentLevel << 8) + *currentAct);
+                default:
+                    return (Stage)((byte)*currentLevel + *currentAct);
+            }
         }
     }
 }

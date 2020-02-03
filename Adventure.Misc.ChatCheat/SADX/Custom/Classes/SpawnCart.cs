@@ -1,15 +1,17 @@
 ﻿using System;
-using Adventure.SDK.Library.API.Objects;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
+using Adventure.SDK.Library.API.Objects.StageObjects.TwinklePark;
 using Reloaded.Memory.Interop;
-using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.SDK.Library.Classes.Native.PVM;
+using static Adventure.SDK.Library.Classes.Native.Player;
+using static Adventure.SDK.Library.Classes.Native.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
     public unsafe class SpawnCart : Cart
     {
+        // Dumped data from Twinkle Park carts
         private static Pinnable<SETObjectData> _setData = new Pinnable<SETObjectData>(new SETObjectData()
         {
             LoadCount = 1,
@@ -20,8 +22,23 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 
         public SpawnCart(CartColor color) : base()
         {
-            // Load Cart textures every time
+            // Load cart textures every time
             LoadPVMFile("OBJ_SHAREOBJ", (IntPtr)0x38AEB70);
+
+            // Delete cart that is occupied by player before spawning a new one
+            GameObject* NextGameObject = Handle->Next;
+            while ((IntPtr)NextGameObject != IntPtr.Zero)
+            {
+                if (NextGameObject->mainSub == MainFunction && NextGameObject->Info->Action == (byte)CartAction.OccupiedByPlayer)
+                {
+                    DeleteNativeGameObject(NextGameObject);
+                    break;
+                }
+                else
+                {
+                    NextGameObject = NextGameObject->Next;
+                }
+            }
 
             // Store information of the player character
             Info* characterInfo = GetCharacterGameObject(Players.P1)->Info;
@@ -33,7 +50,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
                 SETData = _setData.Pointer
             };
 
-            // Set Properties of Cart
+            // Set properties of the cart
             IsUnoccupied = true;
             Color = color;
             Size = (characterInfo->CharacterID) switch
@@ -43,7 +60,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
                 _ => CartSize.Normal,
             };
 
-            // Teleport Cart to the player's position
+            // Teleport cart to the player's position
             Position = characterInfo->Position;
         }
     }
