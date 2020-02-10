@@ -21,31 +21,39 @@ namespace Adventure.Misc.ChatCheat
 
     public class Config : Configurable<Config>
     {
+        #region Twitch Config
         [Category("Twitch")]
         [DisplayName("Chat Prefix")]
         [Description("Prefix used by Twitch Chat")]
         public char TwitchPrefix { get; set; } = '!';
+
         [Category("Twitch")]
         [DisplayName("Channel Name")]
         [Description("Sets the channel the bot listens to.")]
         public string TwitchChannelName { get; set; } = "";
+
         [Category("Twitch")]
         [DisplayName("Bot Username")]
         [Description("The name of the bot used on the channel.")]
         public string TwitchBotUsername { get; set; } = "";
+
         [Category("Twitch")]
         [DisplayName("Bot Token")]
         [Description("")]
         public string TwitchBotToken { get; set; } = "";
+
         [Category("Twitch")]
         [DisplayName("Client ID")]
         [Description("")]
         public string TwitchClientID { get; set; } = "";
+
         [Category("Twitch")]
         [DisplayName("Do Reply in Chat")]
         [Description("Toggles if the bot should reply to command input in chat.")]
         public bool TwitchReply { get; set; } = false;
+        #endregion
 
+        #region Commands
         [Category("Commands")]
         [DisplayName("Swap Character: Sonic")]
         [Description("Turns the player character into Sonic.")]
@@ -219,5 +227,6 @@ namespace Adventure.Misc.ChatCheat
         [Description("Removes the shield powerup from the player.")]
         public CommandConfig ResetShield { get; set; } =
             new CommandConfig { Name = "removeprotection", Cooldown = 0, IsEnabled = true };
+        #endregion
     }
 }

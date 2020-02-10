@@ -1,7 +1,6 @@
 ﻿using System;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
-using Adventure.SDK.Library.API.Objects.StageObjects.TwinklePark;
 using Reloaded.Memory.Interop;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 using static Adventure.SDK.Library.Classes.Native.Player;
@@ -9,7 +8,7 @@ using static Adventure.SDK.Library.Classes.Native.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
-    public unsafe class SpawnCart : Cart
+    public unsafe class Cart : SDK.Library.API.Objects.StageObjects.TwinklePark.Cart
     {
         // Dumped data from Twinkle Park carts
         private static Pinnable<SETObjectData> _setData = new Pinnable<SETObjectData>(new SETObjectData()
@@ -20,7 +19,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Distance = 4000100
         });
 
-        public SpawnCart(CartColor color) : base()
+        public Cart(CartColor color) : base()
         {
             // Load cart textures every time
             LoadPVMFile("OBJ_SHAREOBJ", (IntPtr)0x38AEB70);

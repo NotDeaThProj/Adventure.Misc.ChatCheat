@@ -2,14 +2,15 @@
 using System.Drawing;
 using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
+using Adventure.SDK.Library.API.Objects.Common;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
+using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
 using static Adventure.SDK.Library.API.Objects.StageObjects.TwinklePark.Cart;
-using Adventure.SDK.Library.API.Objects.Common;
-using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
-using Adventure.SDK.Library.Definitions.Structures.GameObject;
+using Adventure.SDK.Library.API.Objects.Player;
+using System.Numerics;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -32,7 +33,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         {
             { Program.Configuration.SwapSonic.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToSonic),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
@@ -46,57 +47,71 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             },
             { Program.Configuration.SwapMetalSonic.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToMetalSonic),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapMetalSonic.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapEggman.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToEggman),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapEggman.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapTails.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToTails),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapTails.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapKnuckles.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToKnuckles),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapKnuckles.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapTikal.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToTikal),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapTikal.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapAmy.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToAmy),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapAmy.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapBig.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToBig),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapBig.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SwapGamma.Name, new Command()
                 {
-                    Function = new Action<ChatMessage>(SwapToGamma),
+                    Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapGamma.Cooldown,
+                    LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.ActionKill.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(SendDamage),
+                    Cooldown = Program.Configuration.ActionKill.Cooldown,
+                    LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.ActionDamage.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(SendDamage),
+                    Cooldown = Program.Configuration.ActionDamage.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
@@ -104,6 +119,34 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 {
                     Function = new Action<ChatMessage>(CreateNewCart),
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
+                    LastActivated = _defaultTime,
+                }
+            },
+            { Program.Configuration.CreateSnowboard.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(CreateNewSnowboard),
+                    Cooldown = Program.Configuration.CreateSnowboard.Cooldown,
+                    LastActivated = _defaultTime,
+                }
+            },
+            { Program.Configuration.SetLowGravity.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(ChangeGravity),
+                    Cooldown = Program.Configuration.SetLowGravity.Cooldown,
+                    LastActivated = _defaultTime,
+                }
+            },
+            { Program.Configuration.SetHighGravity.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(ChangeGravity),
+                    Cooldown = Program.Configuration.SetHighGravity.Cooldown,
+                    LastActivated = _defaultTime,
+                }
+            },
+            { Program.Configuration.SetNormalGravity.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(ChangeGravity),
+                    Cooldown = Program.Configuration.SetNormalGravity.Cooldown,
                     LastActivated = _defaultTime,
                 }
             },
@@ -126,11 +169,57 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         }
 #endif
 
-        public unsafe static void SwapToSonic(ChatMessage chatMessage)
+        public static void SwapToCharacter(ChatMessage chatMessage)
         {
-            new SwapCharacter(Character.Sonic, Players.P1);
+            string replyMessage = $"{chatMessage.Sender} has turned the player into ";
+            if (chatMessage.CommandText.Equals(Program.Configuration.SwapSonic.Name))
+            {
+                new SwapCharacter(Character.Sonic, Players.P1);
+                replyMessage += "Sonic.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapMetalSonic.Name))
+            {
+                new SwapCharacter(Character.Sonic, Players.P1, true);
+                replyMessage += "Metal Sonic.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapEggman.Name))
+            {
+                new SwapCharacter(Character.Eggman, Players.P1);
+                replyMessage += "Eggman.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapTails.Name))
+            {
+                new SwapCharacter(Character.Tails, Players.P1);
+                replyMessage += "Tails.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapKnuckles.Name))
+            {
+                new SwapCharacter(Character.Knuckles, Players.P1);
+                replyMessage += "Knuckles.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapTikal.Name))
+            {
+                new SwapCharacter(Character.Tikal, Players.P1);
+                replyMessage += "Tikal.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapAmy.Name))
+            {
+                new SwapCharacter(Character.Amy, Players.P1);
+                replyMessage += "Amy.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapBig.Name))
+            {
+                new SwapCharacter(Character.Big, Players.P1);
+                replyMessage += "Big.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SwapGamma.Name))
+            {
+                new SwapCharacter(Character.Gamma, Players.P1);
+                replyMessage += "Gamma.";
+            }
+
             LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Sonic.", chatMessage.Service);
+            BotReply(replyMessage, chatMessage.Service);
         }
         public static void SwapToSuper(ChatMessage chatMessage)
         {
@@ -141,71 +230,67 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has turned the player Super.", chatMessage.Service);
         }
-        public unsafe static void SwapToMetalSonic(ChatMessage chatMessage)
+        public static void SendDamage(ChatMessage chatMessage)
         {
-            new SwapCharacter(Character.Sonic, Players.P1, true);
+            string replyMessage = chatMessage.Sender;
+            if (chatMessage.CommandText.Equals(Program.Configuration.ActionKill.Name))
+            {
+                HurtPlayer(Players.P1);
+                HurtPlayer(Players.P1);
+                replyMessage += " has killed the player.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.ActionDamage.Name))
+            {
+                HurtPlayer(Players.P1);
+                replyMessage += " has killed the player.";
+            }
             LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Metal Sonic.", chatMessage.Service);
+            BotReply(replyMessage, chatMessage.Service);
+
         }
-        public unsafe static void SwapToEggman(ChatMessage chatMessage)
+        public static void CreateNewCart(ChatMessage chatMessage)
         {
-            new SwapCharacter(Character.Eggman, Players.P1);
+            CartColor color;
+            if (chatMessage.Arguments != null)
+                Enum.TryParse(chatMessage.Arguments[0], true, out color);
+            else
+                color = (CartColor)new Random().Next(Enum.GetNames(typeof(CartColor)).Length);
+
+            new Cart(color);
             LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Eggman.", chatMessage.Service);
+            BotReply($"{chatMessage.Sender} has spawned a cart.", chatMessage.Service);
         }
-        public unsafe static void SwapToTails(ChatMessage chatMessage)
-        {
-            new SwapCharacter(Character.Tails, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Tails.", chatMessage.Service);
-        }
-        public unsafe static void SwapToKnuckles(ChatMessage chatMessage)
-        {
-            new SwapCharacter(Character.Knuckles, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Knuckles.", chatMessage.Service);
-        }
-        public unsafe static void SwapToTikal(ChatMessage chatMessage)
-        {
-            new SwapCharacter(Character.Tikal, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Tikal.", chatMessage.Service);
-        }
-        public unsafe static void SwapToAmy(ChatMessage chatMessage)
-        {
-            new SwapCharacter(Character.Amy, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Amy.", chatMessage.Service);
-        }
-        public unsafe static void SwapToBig(ChatMessage chatMessage)
-        {
-            new SwapCharacter(Character.Big, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Big.", chatMessage.Service);
-        }
-        public unsafe static void SwapToGamma(ChatMessage chatMessage)
-        {
-            // TODO - FIX CRASH
-            new SwapCharacter(Character.Gamma, Players.P1);
-            LogCommand(chatMessage);
-            BotReply($"{chatMessage.Sender} has turned the player into Gamma.", chatMessage.Service);
-        }
-        public unsafe static void CreateSnowboard(ChatMessage chatMessage)
+        public static void CreateNewSnowboard(ChatMessage chatMessage)
         {
             new Snowboard();
+
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has spawned a snowboard.", chatMessage.Service);
         }
-        public unsafe static void CreateNewCart(ChatMessage chatMessage)
+        public unsafe static void ChangeGravity(ChatMessage chatMessage)
         {
-            if (chatMessage.Arguments != null)
+            Player currentPlayer = new Player(Players.P1);
+            string replyMessage = $"{chatMessage.Sender} has changed to ";
+            if (chatMessage.CommandText.Equals(Program.Configuration.SetLowGravity.Name))
             {
-                Enum.TryParse(chatMessage.Arguments[0], true, out CartColor color);
-                new SpawnCart(color);
-                LogCommand(chatMessage);
-                BotReply($"{chatMessage.Sender} has spawned a cart.", chatMessage.Service);
+                currentPlayer.Gravity = new Vector3(0f, -0.75f, 0f);
+                replyMessage += "low gravity.";
             }
-            else
-                new SpawnCart((CartColor)new Random().Next(Enum.GetNames(typeof(CartColor)).Length));
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SetNormalGravity.Name))
+            {
+                currentPlayer.Gravity = new Vector3(0f, -1f, 0f);
+                replyMessage += "normal gravity.";
+            }
+            else if (chatMessage.CommandText.Equals(Program.Configuration.SetHighGravity.Name))
+            {
+                currentPlayer.Gravity = new Vector3(0f, -1.25f, 0f);
+                replyMessage += "high gravity.";
+            }
+
+            LogCommand(chatMessage);
+            BotReply(replyMessage, chatMessage.Service);
         }
+        
 
         public static void LogCommand(ChatMessage chatMessage)
         {
