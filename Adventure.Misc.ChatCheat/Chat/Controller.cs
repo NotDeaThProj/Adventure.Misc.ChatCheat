@@ -5,8 +5,8 @@ using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.API.Objects.Common;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
+using static Adventure.SDK.Library.Classes.Native.UI;
 using static Adventure.SDK.Library.Classes.Native.Player;
-using static Adventure.SDK.Library.Classes.Native.GameObject;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
 using Adventure.SDK.Library.API.Objects.Player;
@@ -14,6 +14,7 @@ using System.Numerics;
 using Adventure.SDK.Library.API.Game;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
 using Adventure.SDK.Library.Definitions.Enums.Objects;
+using Adventure.SDK.Library.API.Audio;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -164,6 +165,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 {
                     Function = new Action<ChatMessage>(TeleportRandom),
                     Cooldown = Program.Configuration.Teleport.Cooldown,
+                    LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.GiveItem.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(GiveItemToPlayer),
+                    Cooldown = Program.Configuration.GiveItem.Cooldown,
                     LastActivated = _defaultTime
                 }
             },
@@ -326,37 +334,69 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         }
         public unsafe static void GiveItemToPlayer(ChatMessage chatMessage)
         {
-            var itemBoxItems = new ReadOnlySpan<SDK.Library.Definitions.Structures.Object.ItemBoxItem>(_gameHandler.ItemBoxItemFunctionAddress, 9);
+            string replyMessage = $"{chatMessage.Sender} has given ";
+
+            AudioManager audioManager = new AudioManager();
+            Player currentPlayer = new Player();
+
+            var itemBoxFunctions = new ReadOnlySpan<SDK.Library.Definitions.Structures.Object.ItemBoxItem>(_gameHandler.ItemBoxItemFunctionAddress, 9);
+            
+            // Parse chat message arguments into an enum
             ItemBoxItem item;
-            if (chatMessage.Arguments != null)
+            if (chatMessage.Arguments.Count > 0)
                 Enum.TryParse(chatMessage.Arguments[0], true, out item);
             else
                 item = (ItemBoxItem)new Random().Next(Enum.GetNames(typeof(ItemBoxItem)).Length);
 
-            // TODO
+            // Create HUD Display of the Item Box Item
+            CreateItemDisplayHUD(item);
+
+            // Create Chat Reply
             switch (item)
             {
                 case ItemBoxItem.SpeedShoes:
+                    // Rewrite of the Speed Shoes powerup code
+                    if (currentPlayer.CharacterID == Character.Gamma)
+                        audioManager.Sound = 1307;
+                    audioManager.Sound = 11;
+                    GiveSpeedUp(Players.P1);
+
+                    replyMessage += "a speed up!";
                     break;
                 case ItemBoxItem.Invincibility:
+                    replyMessage += "invincibility!";
                     break;
                 case ItemBoxItem.FiveRings:
+                    replyMessage += "5 rings!";
                     break;
                 case ItemBoxItem.TenRings:
+                    replyMessage += "10 rings!";
                     break;
                 case ItemBoxItem.RandomRings:
+                    replyMessage += "a random amount of rings!";
                     break;
                 case ItemBoxItem.Shield:
+                    replyMessage += "a shield!";
                     break;
                 case ItemBoxItem.ExtraLife:
+                    replyMessage += "a one-up!";
                     break;
                 case ItemBoxItem.Bomb:
+                    replyMessage += "a bomb!";
                     break;
                 case ItemBoxItem.MagneticShield:
-                    break;
-                default:
+                    replyMessage += "an electric shield!";
                     break;
             }
+
+            // Use the item box item function
+            if (item != ItemBoxItem.SpeedShoes)
+            {
+                itemBoxFunctions[(int)item].Function((IntPtr)currentPlayer.Info);
+            }
+
+            LogCommand(chatMessage);
+            BotReply(replyMessage, chatMessage.Service);
         }
 
         public static void LogCommand(ChatMessage chatMessage)
