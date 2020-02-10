@@ -6,11 +6,14 @@ using Adventure.SDK.Library.API.Objects.Common;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
 using static Adventure.SDK.Library.Classes.Native.Player;
+using static Adventure.SDK.Library.Classes.Native.GameObject;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
-using static Adventure.SDK.Library.API.Objects.StageObjects.TwinklePark.Cart;
 using Adventure.SDK.Library.API.Objects.Player;
 using System.Numerics;
+using Adventure.SDK.Library.API.Game;
+using Adventure.SDK.Library.Definitions.Structures.GameObject;
+using Adventure.SDK.Library.Definitions.Enums.Objects;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -119,35 +122,49 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 {
                     Function = new Action<ChatMessage>(CreateNewCart),
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.CreateSnowboard.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(CreateNewSnowboard),
                     Cooldown = Program.Configuration.CreateSnowboard.Cooldown,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SetLowGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravity),
                     Cooldown = Program.Configuration.SetLowGravity.Cooldown,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SetHighGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravity),
                     Cooldown = Program.Configuration.SetHighGravity.Cooldown,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
                 }
             },
             { Program.Configuration.SetNormalGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravity),
                     Cooldown = Program.Configuration.SetNormalGravity.Cooldown,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.ResetAct.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(RestartLevelAct),
+                    Cooldown = Program.Configuration.ResetAct.Cooldown,
+                    LastActivated = _defaultTime
+                }
+            },
+            { Program.Configuration.Teleport.Name, new Command()
+                {
+                    Function = new Action<ChatMessage>(TeleportRandom),
+                    Cooldown = Program.Configuration.Teleport.Cooldown,
+                    LastActivated = _defaultTime
                 }
             },
 #if DEBUG
@@ -156,7 +173,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 {
                     Function = new Action<ChatMessage>(RunGarbageCollector),
                     Cooldown = 0,
-                    LastActivated = _defaultTime,
+                    LastActivated = _defaultTime
                 }
             }
 #endif
@@ -168,6 +185,9 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             GC.Collect();
         }
 #endif
+
+        private static GameHandler _gameHandler = new GameHandler();
+        public static Cart cart;
 
         public static void SwapToCharacter(ChatMessage chatMessage)
         {
@@ -248,15 +268,15 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             BotReply(replyMessage, chatMessage.Service);
 
         }
-        public static void CreateNewCart(ChatMessage chatMessage)
+        public unsafe static void CreateNewCart(ChatMessage chatMessage)
         {
             CartColor color;
-            if (chatMessage.Arguments != null)
+            if (chatMessage.Arguments.Count != 0)
                 Enum.TryParse(chatMessage.Arguments[0], true, out color);
             else
                 color = (CartColor)new Random().Next(Enum.GetNames(typeof(CartColor)).Length);
 
-            new Cart(color);
+            cart = new Cart(color);
             LogCommand(chatMessage);
             BotReply($"{chatMessage.Sender} has spawned a cart.", chatMessage.Service);
         }
@@ -269,7 +289,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
         }
         public unsafe static void ChangeGravity(ChatMessage chatMessage)
         {
-            Player currentPlayer = new Player(Players.P1);
+            Player currentPlayer = new Player();
             string replyMessage = $"{chatMessage.Sender} has changed to ";
             if (chatMessage.CommandText.Equals(Program.Configuration.SetLowGravity.Name))
             {
@@ -290,7 +310,54 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             LogCommand(chatMessage);
             BotReply(replyMessage, chatMessage.Service);
         }
-        
+        public unsafe static void RestartLevelAct(ChatMessage chatMessage)
+        {
+            Player currentPlayer = new Player();
+            currentPlayer.Lives++;
+
+            new GameHandler() { GameState = GameState.RestartLevelAct };
+            LogCommand(chatMessage);
+            BotReply($"{chatMessage.Sender} has restarted the current level act.", chatMessage.Service);
+        }
+        public unsafe static void TeleportRandom(ChatMessage chatMessage)
+        {
+            var setData = new ReadOnlySpan<SETEntry>(_gameHandler.SETEntryArrayAddress, _gameHandler.CurrentLevelObjectCount);
+            new Player() { Position = setData[new Random().Next(_gameHandler.CurrentLevelObjectCount)].Position };
+        }
+        public unsafe static void GiveItemToPlayer(ChatMessage chatMessage)
+        {
+            var itemBoxItems = new ReadOnlySpan<SDK.Library.Definitions.Structures.Object.ItemBoxItem>(_gameHandler.ItemBoxItemFunctionAddress, 9);
+            ItemBoxItem item;
+            if (chatMessage.Arguments != null)
+                Enum.TryParse(chatMessage.Arguments[0], true, out item);
+            else
+                item = (ItemBoxItem)new Random().Next(Enum.GetNames(typeof(ItemBoxItem)).Length);
+
+            // TODO
+            switch (item)
+            {
+                case ItemBoxItem.SpeedShoes:
+                    break;
+                case ItemBoxItem.Invincibility:
+                    break;
+                case ItemBoxItem.FiveRings:
+                    break;
+                case ItemBoxItem.TenRings:
+                    break;
+                case ItemBoxItem.RandomRings:
+                    break;
+                case ItemBoxItem.Shield:
+                    break;
+                case ItemBoxItem.ExtraLife:
+                    break;
+                case ItemBoxItem.Bomb:
+                    break;
+                case ItemBoxItem.MagneticShield:
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public static void LogCommand(ChatMessage chatMessage)
         {

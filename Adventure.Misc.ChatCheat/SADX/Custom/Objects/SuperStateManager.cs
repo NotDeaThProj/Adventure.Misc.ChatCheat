@@ -9,6 +9,7 @@ using Reloaded.Memory.Sources;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 using static Adventure.SDK.Library.Classes.Native.GameObject;
 using Reloaded.Hooks.X86;
+using Adventure.SDK.Library.API.Game;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
 {
@@ -29,6 +30,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         // Variables/Constants
         private static ReverseWrapper<FunctionPointer> _mainFunction;
         private static ReverseWrapper<FunctionPointer> _deleteFunction;
+        private static GameHandler _gameHandler = new GameHandler();
 
         private readonly AudioManager _audioManager = new AudioManager();
         private bool _isPlayerSuper;
@@ -50,7 +52,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         public override void Main()
         {
             // Play Super Sonic theme
-            if (_isPlayerSuper && (_audioManager.Song != Music.NoMusic && _lastStage != GetStage()))
+            if (_isPlayerSuper && (_audioManager.Song != Music.NoMusic && _lastStage != _gameHandler.CurrentStage))
                 PlaySuperTheme();
 
             if (IsControllerEnabled && PlayerID == Players.P1 && _isPlayerSuper)
@@ -122,40 +124,10 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             _levelSong = _audioManager.Song;
 
             // Store current stage
-            _lastStage = GetStage();
+            _lastStage = _gameHandler.CurrentStage;
 
             // Play Super Sonic theme
             _audioManager.Song = Music.SuperSonic;
-        }
-
-        private Stage GetStage()
-        {
-            byte* currentAct = (byte*)0x3B22DEC;
-            Stage* currentLevel = (Stage*)0x3B22DCC;
-            switch (*currentLevel)
-            {
-                case Stage.HedgehogHammer:
-                case Stage.EmeraldCoast:
-                case Stage.WindyValley:
-                case Stage.TwinklePark:
-                case Stage.SpeedHighway:
-                case Stage.RedMountain:
-                case Stage.SkyDeck:
-                case Stage.LostWorld:
-                case Stage.IceCap:
-                case Stage.Casinopolis:
-                case Stage.FinalEgg:
-                case Stage.HotShelter:
-                case Stage.StationSquare:
-                case Stage.EggCarrierOutside:
-                case Stage.EggCarrierInside:
-                case Stage.MysticRuins:
-                case Stage.Past:
-                case Stage.TwinkleCircuit:
-                    return (Stage)(((byte)*currentLevel << 8) + *currentAct);
-                default:
-                    return (Stage)((byte)*currentLevel + *currentAct);
-            }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 
             // Delete old character
             if (character == Character.Gamma)
-                Handle->DeleteSub(Handle);
+                Handle->DeleteSub((IntPtr)Handle);
 
             // Set new character ID
             CharacterID = character;
@@ -53,7 +53,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Info->CollisionInfo = null;
 
             // Load new character
-            Handle->MainSub(Handle);
+            Handle->MainSub((IntPtr)Handle);
 
             if (CharacterID == Character.Eggman)
                 Handle->displaySub = _eggmanDisplay.DisplayFunction;

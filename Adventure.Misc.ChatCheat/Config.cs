@@ -154,7 +154,7 @@ namespace Adventure.Misc.ChatCheat
         [DisplayName("Normalize Gravity")]
         [Description("Sets gravity to the default value for the player.")]
         public CommandConfig SetNormalGravity { get; set; } =
-            new CommandConfig { Name = "takemetothemoon", Cooldown = 30, IsEnabled = true };
+            new CommandConfig { Name = "normalizegravity", Cooldown = 30, IsEnabled = true };
 
         [Category("Commands")]
         [DisplayName("Restart Level Act")]

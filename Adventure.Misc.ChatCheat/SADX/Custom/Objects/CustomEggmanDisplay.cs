@@ -30,9 +30,9 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             _displayFunction = new ReverseWrapper<FunctionPointer>(Display);
         }
 
-        public virtual void Display(GameObject* obj)
+        public virtual void Display(IntPtr obj)
         {
-            _eggmanDisplay(obj->ActorData->CharacterData, obj->Info);
+            _eggmanDisplay(((GameObject*)obj)->ActorData->CharacterData, ((GameObject*)obj)->Info);
         }
     }
 }

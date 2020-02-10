@@ -5,6 +5,8 @@ using Reloaded.Memory.Interop;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.SDK.Library.Classes.Native.GameObject;
+using Adventure.SDK.Library.Definitions.Enums.Objects;
+using Adventure.SDK.Library.API.Game;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
@@ -18,9 +20,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Flags = -32767,
             Distance = 4000100
         });
+        private static GameHandler _gameHandler = new GameHandler();
 
         public Cart(CartColor color) : base()
         {
+            // Make sure that the cart is controllable
+            _gameHandler.IsCartOnAutoPilot = false;
+
             // Load cart textures every time
             LoadPVMFile("OBJ_SHAREOBJ", (IntPtr)0x38AEB70);
 

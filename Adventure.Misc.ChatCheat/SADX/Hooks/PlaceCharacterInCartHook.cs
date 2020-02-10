@@ -5,6 +5,7 @@ using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
 using static Reloaded.Hooks.Definitions.X86.FunctionAttribute;
 using static Adventure.SDK.Library.Classes.Native.Player;
+using Adventure.SDK.Library.API.Game;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks
 {
@@ -14,6 +15,8 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks
 
     public unsafe class PlaceCharacterInCartHook : Main.Hook<PlaceCharacterInCart>
     {
+        private static GameHandler _gameHandler = new GameHandler();
+
         static PlaceCharacterInCartHook()
         {
             Address = 0x7981F0;
@@ -23,9 +26,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks
 
         public static void ReplacementFunction(GameObject* obj)
         {
-            Stage* currentLevel = (Stage*)0x3B22DCC;
-
-            switch (*currentLevel)
+            switch (_gameHandler.CurrentStage)
             {
                 case Stage.TwinkleCircuit:
                 case Stage.TwinkleCircuitOne:
