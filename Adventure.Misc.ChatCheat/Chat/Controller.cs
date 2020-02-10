@@ -106,8 +106,25 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
                     LastActivated = _defaultTime,
                 }
+            },
+#if DEBUG
+            {
+                "rungc", new Command()
+                {
+                    Function = new Action<ChatMessage>(RunGarbageCollector),
+                    Cooldown = 0,
+                    LastActivated = _defaultTime,
+                }
             }
+#endif
         };
+
+#if DEBUG
+        public unsafe static void RunGarbageCollector(ChatMessage chatMessage)
+        {
+            GC.Collect();
+        }
+#endif
 
         public unsafe static void SwapToSonic(ChatMessage chatMessage)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.API.Objects.Player;
 using static Adventure.SDK.Library.Classes.Native.Player;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
@@ -19,6 +20,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             { Character.Gamma,    (IntPtr)0x483430 },
             { Character.Big,      (IntPtr)0x490A00 }
         };
+        private static readonly CustomEggmanDisplay _eggmanDisplay = new CustomEggmanDisplay();
 
         public SwapCharacter(Character character, Players playerID, bool isMetalSonic = false) : base(playerID)
         {
@@ -52,6 +54,9 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 
             // Load new character
             Handle->MainSub(Handle);
+
+            if (CharacterID == Character.Eggman)
+                Handle->displaySub = _eggmanDisplay.DisplayFunction;
 
             // Copy CharacterData stuff from old character
             CharacterData->Powerups       = oldCharacterData->Powerups;
