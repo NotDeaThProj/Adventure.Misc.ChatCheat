@@ -696,6 +696,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
             LogCommand(chatMessage);
             BotReply(replyMessage, chatMessage.Service);
         }
+        // ADD BACK MUSIC CHANGING YOU FUCKING DUMB SHIT
         public static void PlayAudioClip(ChatMessage chatMessage)
         {
             string replyMessage = $"{chatMessage.Sender} has ";

@@ -49,7 +49,7 @@ Every command can be customized from Reloaded II's config window
 - !tearmeapart
 	- Cooldown: 30 seconds
 	- Damages the player.
-- !supersonicracing <args>
+- !supersonicracing [args]
 	- Arguments:
 		- black
 		- blue
@@ -78,7 +78,7 @@ Every command can be customized from Reloaded II's config window
 - !chaoscontrol
 	- Cooldown: 180 seconds
 	- Teleports the player to a random object in the level.
-- !item <args>
+- !item [args]
 	- Arguments:
 		- speedshoes
 		- invincibility
@@ -103,7 +103,7 @@ Every command can be customized from Reloaded II's config window
 - !wedontspeakweaboo
 	- Cooldown: NONE
 	- Sets the voice language to English.
-- !idontunderstand <args>
+- !idontunderstand [args]
 	- Arguments:
 		- japanese
 		- english
@@ -112,7 +112,7 @@ Every command can be customized from Reloaded II's config window
 		- german
 	- Cooldown: NONE
 	- Sets the text language.
-- !whattimeisit <args>
+- !whattimeisit [args]
 	- Arguments:
 		- day
 		- evening
