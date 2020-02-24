@@ -1,14 +1,14 @@
-﻿using Reloaded.Hooks.Definitions.X86;
+﻿using Adventure.SDK.Library.Definitions.Structures.GameObject;
+using Reloaded.Hooks.Definitions.X86;
 using Reloaded.Hooks.X86;
 using System;
 using System.Runtime.InteropServices;
-using Adventure.SDK.Library.Definitions.Structures.GameObject;
 using static Adventure.SDK.Library.Classes.Native.GameObject;
 using static Reloaded.Hooks.Definitions.X86.FunctionAttribute;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
 {
-    public unsafe class CustomEggmanDisplay
+    public unsafe class CustomEggmanDisplay : SDK.Library.API.Objects.Main.GameObject
     {
         // Delegates
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -20,19 +20,10 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         private readonly ReverseWrapper<FunctionPointer> _displayFunction;
 
         // Properties
-        public IntPtr DisplayFunction
-        {
-            get => _displayFunction.WrapperPointer;
-        }
+        public IntPtr DisplayFunction { get => _displayFunction.WrapperPointer; }
 
-        public CustomEggmanDisplay()
-        {
-            _displayFunction = new ReverseWrapper<FunctionPointer>(Display);
-        }
+        public CustomEggmanDisplay() { _displayFunction = new ReverseWrapper<FunctionPointer>(Displayer); }
 
-        public virtual void Display(IntPtr obj)
-        {
-            _eggmanDisplay(((GameObject*)obj)->ActorData->CharacterData, ((GameObject*)obj)->Info);
-        }
+        public override void Displayer(IntPtr obj) { _eggmanDisplay(((GameObject*)obj)->ActorData->CharacterData, ((GameObject*)obj)->Info); }
     }
 }

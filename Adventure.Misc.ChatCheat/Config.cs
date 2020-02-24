@@ -227,6 +227,18 @@ namespace Adventure.Misc.ChatCheat
         [Description("Removes the shield powerup from the player.")]
         public CommandConfig ResetShield { get; set; } =
             new CommandConfig { Name = "removeprotection", Cooldown = 0, IsEnabled = true };
+
+        [Category("Commands")]
+        [DisplayName("Scale Up")]
+        [Description("Scales up the character's size.")]
+        public CommandConfig ChangeSizeUp { get; set; } =
+            new CommandConfig { Name = "expand", Cooldown = 30, IsEnabled = true };
+
+        [Category("Commands")]
+        [DisplayName("Scale Down")]
+        [Description("Scales down the character's size.")]
+        public CommandConfig ChangeSizeDown { get; set; } =
+            new CommandConfig { Name = "shrink", Cooldown = 30, IsEnabled = true };
         #endregion
     }
 }

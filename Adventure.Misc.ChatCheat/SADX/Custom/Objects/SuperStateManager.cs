@@ -23,13 +23,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
                 if (value)
                     TurnPlayerSuper();
                 else
-                    Delete();
+                    Destructor((IntPtr)Handle);
             }
         }
 
         // Variables/Constants
-        private static ReverseWrapper<FunctionPointer> _mainFunction;
-        private static ReverseWrapper<FunctionPointer> _deleteFunction;
+        private static ReverseWrapper<FunctionPointer> _executorFunction;
+        private static ReverseWrapper<FunctionPointer> _destructorFunction;
         private static GameHandler _gameHandler = new GameHandler();
 
         private readonly AudioManager _audioManager = new AudioManager();
@@ -41,15 +41,18 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
         private static readonly CustomSuperPhysics _superPhysics = new CustomSuperPhysics(Players.P1);
         private const ushort OriginalSuperWeldDataMethods = 0x7521;
 
-        public SuperStateManager(Players playerID) : base(playerID)
+        public SuperStateManager() : base(Players.P1) { Initializer(); }
+        public SuperStateManager(Players playerID) : base(playerID) { Initializer(); }
+
+        public void Initializer()
         {
-            _mainFunction = new ReverseWrapper<FunctionPointer>((obj) => Main());
-            _deleteFunction = new ReverseWrapper<FunctionPointer>((obj) => Delete());
+            _executorFunction = new ReverseWrapper<FunctionPointer>((obj) => Executor((IntPtr)Handle));
+            _destructorFunction = new ReverseWrapper<FunctionPointer>((obj) => Destructor((IntPtr)Handle));
             LoadPVMFile("SUPERSONIC", (IntPtr)0x142272C);
-            _superStateManager.Value = *LoadNativeGameObject(0, 2, _mainFunction.WrapperPointer);
+            _superStateManager.Value = *LoadNativeGameObject(0, 2, _executorFunction.WrapperPointer);
         }
 
-        public override void Main()
+        public override void Executor(IntPtr handle)
         {
             // Play Super Sonic theme
             if (_isPlayerSuper && (_audioManager.Song != Music.NoMusic && _lastStage != _gameHandler.CurrentStage))
@@ -59,7 +62,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             {
                 // Delete manager if rings reach 0
                 if (Rings == 0)
-                    Delete();
+                    Destructor((IntPtr)Handle);
 
                 // Remove rings from counter
                 ++_timer;
@@ -68,7 +71,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             }
         }
 
-        public override void Delete()
+        public override void Destructor(IntPtr handle)
         {
             if (CharacterID == Character.Sonic)
             {
@@ -80,13 +83,13 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
             }
 
             // Remove Super Sonic upgrade
-            CharacterData->Upgrades &= ~Upgrade.SuperSonic;
+            Handle->ActorData->CharacterData->Upgrades &= ~Upgrade.SuperSonic;
 
             // Restore stage song
             _audioManager.Song = _levelSong;
 
             // Turn back physics to normal
-            _superPhysics.Delete();
+            _superPhysics.Destructor((IntPtr)Handle);
 
             // Delete Game Object
             DeleteNativeGameObject(_superStateManager.Pointer);
@@ -102,14 +105,14 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
                 Memory.Instance.SafeWrite((IntPtr)0x49AC6A, (ushort)0x9090);
 
                 // Remove light dashing state
-                Info->Status &= ~Status.LightDash;
+                Handle->Info->Status &= ~Status.LightDash;
 
                 NextAction = PlayerAction.SuperSonic;
                 _audioManager.Voice = 396;
             }
 
             // Add Super Sonic upgrade
-            CharacterData->Upgrades |= Upgrade.SuperSonic;
+            Handle->ActorData->CharacterData->Upgrades |= Upgrade.SuperSonic;
 
             // Add super aura if player is not Sonic
             if (CharacterID != Character.Sonic)

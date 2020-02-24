@@ -1,17 +1,18 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
-      "Adventure.SDK/0.2.9.1": {
+    ".NETCoreApp,Version=v3.0": {
+      "Adventure.SDK/0.3.6": {
         "type": "package",
         "dependencies": {
+          "Ninja.SDK": "1.0.1",
           "Reloaded.Hooks": "2.3.4"
         },
         "compile": {
-          "lib/netcoreapp3.1/Adventure.SDK.dll": {}
+          "lib/netcoreapp3.0/Adventure.SDK.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Adventure.SDK.dll": {}
+          "lib/netcoreapp3.0/Adventure.SDK.dll": {}
         }
       },
       "Iced/1.3.0": {
@@ -75,6 +76,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Ninja.SDK/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/Ninja.SDK.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Ninja.SDK.dll": {}
         }
       },
       "Reloaded.Assembler/1.0.9": {
@@ -1158,16 +1168,16 @@
     }
   },
   "libraries": {
-    "Adventure.SDK/0.2.9.1": {
-      "sha512": "dqkOTNmLOQElf1zz9ZR2VfTtnxYJKiotZp/vU7VLrDd/UXvfPI/PXmQis52lwMtIqQ5XQXc9VldEEaBpHIA/aA==",
+    "Adventure.SDK/0.3.6": {
+      "sha512": "BkIcuYjL6r0Ls1LOQ53fDacR15LZPxqnFFJ6Aci4XYSrLuBhBSL6p8dxmnOxitIdw7yvpcskxM9dSV65uIvuSg==",
       "type": "package",
-      "path": "adventure.sdk/0.2.9.1",
+      "path": "adventure.sdk/0.3.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "adventure.sdk.0.2.9.1.nupkg.sha512",
+        "adventure.sdk.0.3.6.nupkg.sha512",
         "adventure.sdk.nuspec",
-        "lib/netcoreapp3.1/Adventure.SDK.dll"
+        "lib/netcoreapp3.0/Adventure.SDK.dll"
       ]
     },
     "Iced/1.3.0": {
@@ -1359,6 +1369,18 @@
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "newtonsoft.json.12.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec"
+      ]
+    },
+    "Ninja.SDK/1.0.1": {
+      "sha512": "BlggE8wXawwxkuhUQUfjhjLBviup4227TVTaEmDbhnxggYzLFls61su46a0z4iV66n1eBwnv5fI/WNcYOjHR7w==",
+      "type": "package",
+      "path": "ninja.sdk/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.0/Ninja.SDK.dll",
+        "ninja.sdk.1.0.1.nupkg.sha512",
+        "ninja.sdk.nuspec"
       ]
     },
     "Reloaded.Assembler/1.0.9": {
@@ -3780,8 +3802,8 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
-      "Adventure.SDK >= 0.2.9.1",
+    ".NETCoreApp,Version=v3.0": [
+      "Adventure.SDK >= 0.3.6",
       "Reloaded.Hooks >= 2.3.4",
       "Reloaded.Messaging >= 1.1.0",
       "Reloaded.Messaging.Serializer.SystemTextJson >= 1.0.1",
@@ -3813,14 +3835,14 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "netcoreapp3.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "netcoreapp3.0": {
           "projectReferences": {}
         }
       },
@@ -3831,11 +3853,11 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "netcoreapp3.0": {
         "dependencies": {
           "Adventure.SDK": {
             "target": "Package",
-            "version": "[0.2.9.1, )"
+            "version": "[0.3.6, )"
           },
           "Reloaded.Hooks": {
             "target": "Package",
@@ -3868,6 +3890,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

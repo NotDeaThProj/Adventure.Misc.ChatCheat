@@ -12,14 +12,6 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
 {
     public unsafe class Cart : SDK.Library.API.Objects.StageObjects.TwinklePark.Cart
     {
-        // Dumped data from Twinkle Park carts
-        private static Pinnable<SETObjectData> _setData = new Pinnable<SETObjectData>(new SETObjectData()
-        {
-            LoadCount = 1,
-            field_1 = 0,
-            Flags = -32767,
-            Distance = 4000100
-        });
         private static GameHandler _gameHandler = new GameHandler();
 
         public Cart(CartColor color) : base()
@@ -34,7 +26,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             GameObject* NextGameObject = Handle->Next;
             while ((IntPtr)NextGameObject != IntPtr.Zero)
             {
-                if (NextGameObject->mainSub == MainFunction && NextGameObject->Info->Action == (byte)CartAction.OccupiedByPlayer)
+                if (NextGameObject->executor == MainFunction && NextGameObject->Info->Action == (byte)CartAction.OccupiedByPlayer)
                 {
                     DeleteNativeGameObject(NextGameObject);
                     break;
@@ -49,11 +41,10 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             Info* characterInfo = GetCharacterGameObject(Players.P1)->Info;
 
             // Fixes cart despawning when far away from camera
-            _setData.Value.ObjectInstance = Handle;
-            Handle->SETData = new SETDataUnion()
-            {
-                SETData = _setData.Pointer
-            };
+            SETData->LoadCount = 1;
+            SETData->Flags = -32767;
+            SETData->Distance = 4000100;
+            SETData->ObjectInstance = Handle;
 
             // Set properties of the cart
             IsUnoccupied = true;
@@ -66,7 +57,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes
             };
 
             // Teleport cart to the player's position
-            Position = characterInfo->Position;
+            Info->Position = characterInfo->Position;
         }
     }
 }

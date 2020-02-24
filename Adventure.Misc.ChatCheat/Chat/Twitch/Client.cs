@@ -42,7 +42,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch
         {
             new ChatMessage(e.Command.ChatMessage.DisplayName,
                 e.Command.CommandText, e.Command.ArgumentsAsList,
-                StreamingService.Twitch);
+                StreamingService.Twitch, e.Command.ChatMessage.IsBroadcaster, e.Command.ChatMessage.IsModerator);
         }
 
         public void Disconnect()

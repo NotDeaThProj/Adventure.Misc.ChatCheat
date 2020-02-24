@@ -12,7 +12,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects
 
         public CustomSuperPhysics(Players playerID) : base() { _playerID = playerID; }
 
-        public override void Delete()
+        public override void Destructor(IntPtr handle)
         {
             ReadOnlySpan<PhysicsData> characterPhysicsArray = new ReadOnlySpan<PhysicsData>((void*)0x9154E8, 8);
             GameObject* characterObject = GetCharacterGameObject(_playerID);

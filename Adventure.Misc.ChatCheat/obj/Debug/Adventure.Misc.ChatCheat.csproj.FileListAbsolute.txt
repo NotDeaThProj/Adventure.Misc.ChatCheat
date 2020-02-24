@@ -86,3 +86,4 @@ D:\Repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\obj\Debug\Adventure.M
 D:\Repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\obj\Debug\Adventure.Misc.ChatCheat.csproj.CopyComplete
 D:\Repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\obj\Debug\Adventure.Misc.ChatCheat.ReloadedII.dll
 D:\Repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\obj\Debug\Adventure.Misc.ChatCheat.ReloadedII.pdb
+D:\Repos\Adventure.Misc.ChatCheat\Adventure.Misc.ChatCheat\bin\Debug\Ninja.SDK.dll
