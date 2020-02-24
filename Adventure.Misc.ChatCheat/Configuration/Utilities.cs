@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Adventure.Misc.ChatCheat.Configuration
 {

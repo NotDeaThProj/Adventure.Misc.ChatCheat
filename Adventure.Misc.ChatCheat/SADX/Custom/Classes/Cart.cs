@@ -3,7 +3,6 @@ using Adventure.SDK.Library.API.Game;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Enums.Objects;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
-using Reloaded.Memory.Interop;
 using static Adventure.SDK.Library.Classes.Native.PVM;
 using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.SDK.Library.Classes.Native.GameObject;

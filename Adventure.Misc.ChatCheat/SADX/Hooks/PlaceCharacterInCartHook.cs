@@ -1,11 +1,11 @@
 ﻿using System.Runtime.InteropServices;
 using Reloaded.Hooks;
 using Reloaded.Hooks.Definitions.X86;
+using Adventure.SDK.Library.API.Game;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.Definitions.Structures.GameObject;
-using static Reloaded.Hooks.Definitions.X86.FunctionAttribute;
 using static Adventure.SDK.Library.Classes.Native.Player;
-using Adventure.SDK.Library.API.Game;
+using static Reloaded.Hooks.Definitions.X86.FunctionAttribute;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks
 {

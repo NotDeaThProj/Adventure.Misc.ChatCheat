@@ -1,12 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
+using Reloaded.Mod.Interfaces;
 using Reloaded.Messaging.Interfaces;
 using Reloaded.Messaging.Interfaces.Message;
 using Reloaded.Messaging.Serializer.SystemTextJson;
-using Reloaded.Mod.Interfaces;
 
 namespace Adventure.Misc.ChatCheat.Configuration
 {

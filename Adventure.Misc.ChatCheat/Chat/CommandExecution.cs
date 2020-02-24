@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Concurrent;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
-using System;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -70,7 +70,7 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                     {
                         DateTime currentTime = DateTime.Now;
                         DateTime lastActivationTime = currentCommand.LastActivated.AddSeconds(currentCommand.Cooldown);
-                        if (currentTime > lastActivationTime)
+                        if (currentTime > lastActivationTime && currentCommand.IsEnabled)
                         {
                             // Execute Command
                             currentCommand.Function(currentMessage);

@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Drawing;
+using System.Numerics;
 using System.Collections.Generic;
+using Adventure.SDK.Library.API.Game;
+using Adventure.SDK.Library.API.Audio;
 using Adventure.SDK.Library.Definitions.Enums;
 using Adventure.SDK.Library.API.Objects.Common;
+using Adventure.SDK.Library.Definitions.Enums.Objects;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Classes;
 using Adventure.Misc.ChatCheat.ReloadedII.SADX.Custom.Objects;
+using Adventure.SDK.Library.Definitions.Structures.GameObject;
 using static Adventure.SDK.Library.Classes.Native.UI;
 using static Adventure.SDK.Library.Classes.Native.World;
 using static Adventure.SDK.Library.Classes.Native.Player;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.ChatMessage;
 using static Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch.Client;
-using System.Numerics;
-using Adventure.SDK.Library.API.Game;
-using Adventure.SDK.Library.Definitions.Enums.Objects;
-using Adventure.SDK.Library.API.Audio;
-using Adventure.SDK.Library.API.Objects.Main;
-using Adventure.SDK.Library.Definitions.Structures.SETData;
-using Adventure.SDK.Library.Definitions.Structures.GameObject;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 {
@@ -30,6 +28,8 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
 
         // Last Time Command was activated;
         public DateTime LastActivated;
+
+        public bool IsEnabled;
     }
 
     public class Controller
@@ -41,217 +41,248 @@ namespace Adventure.Misc.ChatCheat.ReloadedII.Chat
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapSonic.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapSonic.IsEnabled
                 }
             },
             { Program.Configuration.SwapSuper.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToSuper),
                     Cooldown = Program.Configuration.SwapSuper.Cooldown,
-                    LastActivated =_defaultTime
+                    LastActivated =_defaultTime,
+                    IsEnabled = Program.Configuration.SwapSuper.IsEnabled
                 }
             },
             { Program.Configuration.SwapMetalSonic.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapMetalSonic.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapMetalSonic.IsEnabled
                 }
             },
             { Program.Configuration.SwapEggman.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapEggman.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapEggman.IsEnabled
                 }
             },
             { Program.Configuration.SwapTails.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapTails.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapTails.IsEnabled
                 }
             },
             { Program.Configuration.SwapKnuckles.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapKnuckles.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapKnuckles.IsEnabled
                 }
             },
             { Program.Configuration.SwapTikal.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapTikal.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapTikal.IsEnabled
                 }
             },
             { Program.Configuration.SwapAmy.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapAmy.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapAmy.IsEnabled
                 }
             },
             { Program.Configuration.SwapBig.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapBig.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapBig.IsEnabled
                 }
             },
             { Program.Configuration.SwapGamma.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SwapToCharacter),
                     Cooldown = Program.Configuration.SwapGamma.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SwapGamma.IsEnabled
                 }
             },
             { Program.Configuration.ActionKill.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SendDamage),
                     Cooldown = Program.Configuration.ActionKill.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ActionKill.IsEnabled
                 }
             },
             { Program.Configuration.ActionDamage.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SendDamage),
                     Cooldown = Program.Configuration.ActionDamage.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ActionDamage.IsEnabled
                 }
             },
             { Program.Configuration.CreateCart.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SpawnCart),
                     Cooldown = Program.Configuration.CreateCart.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.CreateCart.IsEnabled
                 }
             },
             { Program.Configuration.CreateSnowboard.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(SpawnSnowboard),
                     Cooldown = Program.Configuration.CreateSnowboard.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.CreateSnowboard.IsEnabled
                 }
             },
             { Program.Configuration.SetLowGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravitationalForce),
                     Cooldown = Program.Configuration.SetLowGravity.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SetLowGravity.IsEnabled
                 }
             },
             { Program.Configuration.SetHighGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravitationalForce),
                     Cooldown = Program.Configuration.SetHighGravity.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SetHighGravity.IsEnabled
                 }
             },
             { Program.Configuration.SetNormalGravity.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeGravitationalForce),
                     Cooldown = Program.Configuration.SetNormalGravity.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SetNormalGravity.IsEnabled
                 }
             },
             { Program.Configuration.ResetAct.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(RestartLevelAct),
                     Cooldown = Program.Configuration.ResetAct.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ResetAct.IsEnabled
                 }
             },
             { Program.Configuration.Teleport.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(TeleportRandom),
                     Cooldown = Program.Configuration.Teleport.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.Teleport.IsEnabled
                 }
             },
             { Program.Configuration.GiveItem.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(GiveItem),
                     Cooldown = Program.Configuration.GiveItem.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.GiveItem.IsEnabled
                 }
             },
             { Program.Configuration.ResetLives.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ResetLifeCounter),
                     Cooldown = Program.Configuration.ResetLives.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ResetLives.IsEnabled
                 }
             },
             { Program.Configuration.ResetRings.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ResetRingCounter),
                     Cooldown = Program.Configuration.ResetRings.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ResetRings.IsEnabled
                 }
             },
             { Program.Configuration.VoiceJapanese.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeLanguage),
                     Cooldown = Program.Configuration.VoiceJapanese.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.VoiceJapanese.IsEnabled
                 }
             },
             { Program.Configuration.VoiceEnglish.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeLanguage),
                     Cooldown = Program.Configuration.VoiceEnglish.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.VoiceEnglish.IsEnabled
                 }
             },
             { Program.Configuration.SetTextLanguage.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeLanguage),
                     Cooldown = Program.Configuration.SetTextLanguage.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SetTextLanguage.IsEnabled
                 }
             },
             { Program.Configuration.SetTimeOfDay.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeTimeOfDay),
                     Cooldown = Program.Configuration.SetTimeOfDay.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.SetTimeOfDay.IsEnabled
                 }
             },
             { Program.Configuration.PlayOhNo.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(PlayAudioClip),
                     Cooldown = Program.Configuration.PlayOhNo.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.PlayOhNo.IsEnabled
                 }
             },
             { Program.Configuration.RandomVoice.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(PlayAudioClip),
                     Cooldown = Program.Configuration.RandomVoice.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.RandomVoice.IsEnabled
                 }
             },
             { Program.Configuration.ResetShield.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(RemoveShield),
                     Cooldown = Program.Configuration.ResetShield.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ResetShield.IsEnabled
                 }
             },
             { Program.Configuration.ChangeSizeUp.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeCharacterSize),
                     Cooldown = Program.Configuration.ChangeSizeUp.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ChangeSizeUp.IsEnabled
                 }
             },
             { Program.Configuration.ChangeSizeDown.Name, new Command()
                 {
                     Function = new Action<ChatMessage>(ChangeCharacterSize),
                     Cooldown = Program.Configuration.ChangeSizeDown.Cooldown,
-                    LastActivated = _defaultTime
+                    LastActivated = _defaultTime,
+                    IsEnabled = Program.Configuration.ChangeSizeDown.IsEnabled
                 }
             },
 #if DEBUG

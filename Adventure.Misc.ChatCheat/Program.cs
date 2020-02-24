@@ -1,9 +1,9 @@
 ﻿using System;
+using Adventure.Misc.ChatCheat.Configuration;
+using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
 using Adventure.Misc.ChatCheat.ReloadedII.Chat.Twitch;
 using Reloaded.Mod.Interfaces;
 using Reloaded.Mod.Interfaces.Internal;
-using Adventure.Misc.ChatCheat.ReloadedII.SADX.Hooks;
-using Adventure.Misc.ChatCheat.Configuration;
 
 namespace Adventure.Misc.ChatCheat.ReloadedII
 {
